@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jonas Bondoc - Web Developer & Designer Portfolio">
+    <meta name="keywords" content="web developer, portfolio, jonas bondoc, front-end developer">
+    <meta name="author" content="Jonas Bondoc">
+    <title>Jonas Bondoc | Developer Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="photos/jb logo.png">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <!-- GSAP for scroll animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis for smooth scrolling -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar"></div>
+    </div>
+    
+    <!-- Speed Lines Background -->
+    <div class="speed-lines"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">
+                    <!-- Dark mode logo (default) -->
+                    <img src="photos/jb logo - dark.png" alt="JB Logo" class="logo-img logo-dark">
+                    <!-- Light mode logo (shown in light mode) -->
+                    <img src="photos/jb logo - light.png" alt="JB Logo" class="logo-img logo-light">
+                 </a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#resume" class="nav-link nav-resume">Resume</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-subtitle" data-scroll-reveal="fade-up">
+                    <span class="racing-stripe"></span>
+                    FULL STACK DEVELOPER
+                </div>
+                <h1 class="hero-title" data-scroll-reveal="fade-up" data-scroll-delay="0.1">
+                    JONAS<br>
+                    <span class="title-highlight">BONDOC</span>
+                </h1>
+                <p class="hero-description" data-scroll-reveal="fade-up" data-scroll-delay="0.2">
+                    Building high-performance digital experiences with precision engineering and creative innovation
+                </p>
+                <div class="hero-cta" data-scroll-reveal="fade-up" data-scroll-delay="0.3">
+                    <a href="#projects" class="btn btn-primary magnetic-btn">
+                        <span>View Projects</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary magnetic-btn">
+                        <span>Get in Touch</span>
+                    </a>
+                </div>
+                
+                <!-- Stats Dashboard -->
+                <div class="stats-grid" data-scroll-reveal="fade-up" data-scroll-delay="0.4">
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="6">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="2">0</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="3">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator" data-scroll-reveal="fade-in" data-scroll-delay="0.8">
+            <span>Explore More</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about page-section">
+        <div class="container">
+            <div class="section-header" data-scroll-reveal="fade-up">
+                <span class="section-number">01</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-content" data-scroll-reveal="fade-up" data-scroll-delay="0.1">
+                    <p class="about-text">
+                        I'm a full-stack developer driven by the challenge of building high-performing, scalable digital solutions. I take pride in transforming ideas into powerful applications that are not only visually refined but also reliable, efficient, and user-centered.
+                    </p>
+                    <p class="about-text">
+                        With solid experience in modern web technologies, I approach every project with precision, strategic thinking, and attention to detail. I don't just build applications — I engineer solutions that deliver real impact and seamless user experiences.
+                    </p>
+                    <p class="about-text">
+                        I'm committed to continuous growth, constantly refining my skills, exploring emerging technologies, and optimizing my workflow to stay ahead in an ever-evolving tech landscape.
+                    </p>
+                </div>
+
+                <!-- Certifications -->
+                <div class="certifications-about" data-scroll-reveal="fade-up" data-scroll-delay="0.25">
+                    <h3 class="cert-title">Certifications & Awards</h3>
+                    <div class="cert-grid-about">
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.1">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Legacy Responsive Web Design V8</h4>
+                                <p>freeCodeCamp - 2024</p>
+                                <a href="https://www.freecodecamp.org/certification/jonasbondoc/responsive-web-design" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.15">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Introduction to Figma</h4>
+                                <p>Simplilearn - 2024</p>
+                                <a href="https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiI0MzcyIiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvdGh1bWJfNzM5ODY3Nl8xNzI3MTA2NTQwLnBuZyIsInVzZXJuYW1lIjoiSm9uYXMgSmFzb24gRC4gQm9uZG9jIn0%3D&utm_source=shared-certificate&utm_medium=lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Flms.simplilearn.com%2Fcourses%2F7320%2FIntroduction-to-Figma-course%2Fcertificate%2Fdownload-skillup&%24web_only=true&_branch_match_id=1488597856674289403&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1k%2FVj%2FSOiHTL8Qw0CkiyrytKTUstKsrMS49PKsovL04tsvUvSC1KBAAtTcDyPgAAAA%3D%3D" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.2">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>JavaScript Essentials 1</h4>
+                                <p>Cisco Networking Academy - 2024</p>
+                                <a href="https://www.credly.com/badges/39da9ae7-6b5d-4d68-92c6-fd139991a4be/print" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.25">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Backend Development and APIs V8</h4>
+                                <p>freeCodeCamp - 2025</p>
+                                <a href="https://www.freecodecamp.org/certification/jonasbondoc/back-end-development-and-apis" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.3">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Introduction to Programming Using PHP</h4>
+                                <p>Simplilearn - 2025</p>
+                                <a href="https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiIxOTY4IiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvNzc2MTEzNF83NDgzMzEyMTczNjUxNjAyNTczMS5wbmciLCJ1c2VybmFtZSI6IkpvbmFzIEphc29uIEQuIEJvbmRvYyJ9&utm_source=shared-certificate&utm_medium=lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Flms.simplilearn.com%2Fcourses%2F4587%2FIntroduction-to-PHP%2Fcertificate%2Fdownload-skillup&%24web_only=true&_branch_match_id=1488597856674289403&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1k%2FVr8oPLHesrAw0CkiyrytKTUstKsrMS49PKsovL04tsvUvSC1KBAAZg9YDPgAAAA%3D%3D" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.35">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Legacy JavaScript Algorithms and Data Structures V7</h4>
+                                <p>freeCodeCamp - 2025</p>
+                                <a href="https://www.freecodecamp.org/certification/jonasbondoc/javascript-algorithms-and-data-structures" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.4">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Digital Marketing</h4>
+                                <p>HubSpot Academy - 2025</p>
+                                <a href="https://app-na2.hubspot.com/academy/achievements/7mgxnp0k/en/1/jonas-jason-bondoc/digital-marketing" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.45">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Content Marketing</h4>
+                                <p>HubSpot Academy - 2025</p>
+                                <a href="https://app-na2.hubspot.com/academy/achievements/tvctnpsw/en/1/jonas-jason-bondoc/content-marketing" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.5">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Digital Advertising</h4>
+                                <p>HubSpot Academy - 2025</p>
+                                <a href="https://app-na2.hubspot.com/academy/achievements/7sj2yfrb/en/1/jonas-jason-bondoc/digital-advertising" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.55">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Introduction to Graphic Design; Basics of UI/UX</h4>
+                                <p>Simplilearn - 2025</p>
+                                <a href="https://simpli-web.app.link/e/PjsnMMf7V0b" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.6">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>Website UI/UX Designing using ChatGPT</h4>
+                                <p>Simplilearn - 2025</p>
+                                <a href="https://simpli-web.app.link/e/j4fcDHq7V0b" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.65">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>SEO</h4>
+                                <p>HubSpot Academy - 2026</p>
+                                <a href="https://app-na2.hubspot.com/academy/achievements/k4q6b70y/en/1/jonas-jason-bondoc/seo" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                        <div class="cert-item-about" data-scroll-reveal="scale-up" data-scroll-delay="0.7">
+                            <div class="cert-icon"></div>
+                            <div class="cert-content">
+                                <h4>SEO II</h4>
+                                <p>HubSpot Academy - 2026</p>
+                                <a href="https://app-na2.hubspot.com/academy/achievements/ymrp9sk4/en/1/jonas-jason-bondoc/seo-ii" class="cert-link" target="_blank">View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-container" data-scroll-reveal="fade-up" data-scroll-delay="0.2">
+                    <h3 class="skills-title">Tech Stack</h3>
+                    <div class="tech-stack-grid">
+                        <!-- HTML -->
+                        <div class="tech-item" data-tech="HTML5" data-scroll-reveal="scale-up" data-scroll-delay="0.05">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+                            <span>HTML</span>
+                        </div>
+
+                        <!-- CSS -->
+                        <div class="tech-item" data-tech="CSS3" data-scroll-reveal="scale-up" data-scroll-delay="0.1">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+                            <span>CSS</span>
+                        </div>
+
+                        <!-- JavaScript -->
+                        <div class="tech-item" data-tech="JavaScript" data-scroll-reveal="scale-up" data-scroll-delay="0.15">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            <span>JavaScript</span>
+                        </div>
+
+                        <!-- PHP -->
+                        <div class="tech-item" data-tech="PHP" data-scroll-reveal="scale-up" data-scroll-delay="0.2">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+                            <span>PHP</span>
+                        </div>
+
+                        <!-- Python -->
+                        <div class="tech-item" data-tech="Python" data-scroll-reveal="scale-up" data-scroll-delay="0.25">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <span>Python</span>
+                        </div>
+
+                        <!-- Java -->
+                        <div class="tech-item" data-tech="Java" data-scroll-reveal="scale-up" data-scroll-delay="0.3">
+                            <img src="https://www.pngall.com/wp-content/uploads/2016/05/Java-Free-Download-PNG.png" alt="Java">
+                            <span>Java</span>
+                        </div>
+
+                        <!-- Dart -->
+                        <div class="tech-item" data-tech="Dart" data-scroll-reveal="scale-up" data-scroll-delay="0.35">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart">
+                            <span>Dart</span>
+                        </div>
+
+                        <!-- Node.js -->
+                        <div class="tech-item" data-tech="Node.js" data-scroll-reveal="scale-up" data-scroll-delay="0.4">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                            <span>Node.js</span>
+                        </div>
+
+                        <!-- Angular -->
+                        <div class="tech-item" data-tech="Angular" data-scroll-reveal="scale-up" data-scroll-delay="0.45">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular">
+                            <span>Angular</span>
+                        </div>
+
+                        <!-- Vue -->
+                        <div class="tech-item" data-tech="Vue.js" data-scroll-reveal="scale-up" data-scroll-delay="0.5">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" alt="Vuejs">
+                            <span>Vue</span>
+                        </div>
+
+                        <!-- Bootstrap -->
+                        <div class="tech-item" data-tech="Bootstrap" data-scroll-reveal="scale-up" data-scroll-delay="0.55">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+                            <span>Bootstrap</span>
+                        </div>
+
+                        <!-- Tailwind -->
+                        <div class="tech-item" data-tech="Tailwind CSS" data-scroll-reveal="scale-up" data-scroll-delay="0.6">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
+                            <span>Tailwind</span>
+                        </div>
+
+                        <!-- MySQL -->
+                        <div class="tech-item" data-tech="MySQL" data-scroll-reveal="scale-up" data-scroll-delay="0.65">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                            <span>MySQL</span>
+                        </div>
+
+                        <!-- MongoDB -->
+                        <div class="tech-item" data-tech="MongoDB" data-scroll-reveal="scale-up" data-scroll-delay="0.7">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+                            <span>MongoDB</span>
+                        </div>
+
+                        <!-- Firebase -->
+                        <div class="tech-item" data-tech="Firebase" data-scroll-reveal="scale-up" data-scroll-delay="0.75">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+                            <span>Firebase</span>
+                        </div>
+
+                        <!-- WordPress -->
+                        <div class="tech-item" data-tech="WordPress" data-scroll-reveal="scale-up" data-scroll-delay="0.8">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="WordPress">
+                            <span>WordPress</span>
+                        </div>
+
+                        <!-- Arduino -->
+                        <div class="tech-item" data-tech="Arduino" data-scroll-reveal="scale-up" data-scroll-delay="0.85">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-plain.svg" alt="Arduino">
+                            <span>Arduino</span>
+                        </div>
+
+                        <!-- VS Code -->
+                        <div class="tech-item" data-tech="VS Code" data-scroll-reveal="scale-up" data-scroll-delay="0.9">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
+                            <span>VS Code</span>
+                        </div>
+
+                        <!-- Git -->
+                        <div class="tech-item" data-tech="Git" data-scroll-reveal="scale-up" data-scroll-delay="0.95">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                            <span>Git</span>
+                        </div>
+
+                        <!-- GitHub -->
+                        <div class="tech-item" data-tech="GitHub" data-scroll-reveal="scale-up" data-scroll-delay="1">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                            <span>GitHub</span>
+                        </div>
+
+                        <!-- Netlify -->
+                        <div class="tech-item" data-tech="Netlify" data-scroll-reveal="scale-up" data-scroll-delay="1.05">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-plain.svg" alt="netlify">
+                            <span>Netlify</span>
+                        </div>
+
+                        <!-- Figma -->
+                        <div class="tech-item" data-tech="Figma" data-scroll-reveal="scale-up" data-scroll-delay="1.1">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+                            <span>Figma</span>
+                        </div>
+
+                        <!-- Canva -->
+                        <div class="tech-item" data-tech="Canva" data-scroll-reveal="scale-up" data-scroll-delay="1.15">
+                            <img src="https://www.pngall.com/wp-content/uploads/13/Canva-Logo-PNG.png" alt="Canva">
+                            <span>Canva</span>
+                        </div>
+
+                        <!-- AWS -->
+                        <div class="tech-item" data-tech="AWS" data-scroll-reveal="scale-up" data-scroll-delay="1.2">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS">
+                            <span>AWS</span>
+                        </div>
+
+                        <!-- MS Office -->
+                        <div class="tech-item" data-tech="MS Office" data-scroll-reveal="scale-up" data-scroll-delay="1.25">
+                            <img src="https://img.icons8.com/color/48/microsoft-office-2019.png" alt="MS Office">
+                            <span>MS Office</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects page-section">
+        <div class="container">
+            <div class="section-header" data-scroll-reveal="fade-up">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-scroll-reveal="fade-up" data-scroll-delay="0.1">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://koma-ph.netlify.app" class="project-link magnetic-btn" target="_blank" rel="noopener">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Live Demo
+                                </a>
+                                <a href="https://github.com/JonasBondoc26/6WCSERVER-WD-303-KOMA-PH-Inventory-and-Order-Management-System" class="project-link magnetic-btn" target="_blank" rel="noopener">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">E-Commerce Site</div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category">Full Stack Development</div>
+                        <h3 class="project-title">Koma PH E-Commerce Site</h3>
+                        <p class="project-description">
+                            This program is programmed by using MEVN. The rationale of creating this system is that it will assist KOMA PH in shifting to less manual work and a more coordinated, effective, and factual system. The implementation of such a system will allow the business to streamline operations, minimize human mistakes, increase customer satisfaction, and provide a stable basis on which the expansion will take place in the future. Another objective of the project is to show how web technologies can be used in addressing real-life management issues of business.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Express.js</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card" data-scroll-reveal="fade-up" data-scroll-delay="0.2">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://galangdentalcenter.com/" class="project-link magnetic-btn" target="_blank" rel="noopener">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Live Demo
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">Business Website SEO Ready</div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category">WordPress Project</div>
+                        <h3 class="project-title">Galang Dental Center | Business Site</h3>
+                        <p class="project-description">
+                            The website was created to make it easier for people in San Fernando, Pampanga to learn about and access dental services. The clinic realized that relying only on phone calls and walk-in visits made it difficult for many patients to get the information they needed about dental care.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">WordPress</span>
+                            <span class="tech-tag">Google Search Console</span>
+                            <span class="tech-tag">Math Rank SEO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View More Projects Button -->
+            <div class="view-more-projects" data-scroll-reveal="fade-up" data-scroll-delay="0.3">
+                <a href="projects.html" class="btn btn-primary btn-view-more magnetic-btn">
+                    <span>View All Projects</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact page-section">
+        <div class="container">
+            <div class="section-header" data-scroll-reveal="fade-up">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info" data-scroll-reveal="fade-left" data-scroll-delay="0.1">
+                    <h3 class="contact-subtitle">Let's Build Something Amazing</h3>
+                    <p class="contact-text">
+                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a question or just want to say hi, feel free to reach out.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item" data-scroll-reveal="fade-up" data-scroll-delay="0.15">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="contact-detail">
+                                <h4>Email</h4>
+                                <a href="mailto:jjbondoc07@gmail.com">jjbondoc07@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item" data-scroll-reveal="fade-up" data-scroll-delay="0.2">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="contact-detail">
+                                <h4>Phone</h4>
+                                <a href="tel:+639157759027">+63 915 775 9027</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item" data-scroll-reveal="fade-up" data-scroll-delay="0.25">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="contact-detail">
+                                <h4>Location</h4>
+                                <p>City of San Fernando, Pampanga<br>Philippines</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links" data-scroll-reveal="fade-up" data-scroll-delay="0.3">
+                        <a href="https://github.com/JonasBondoc26" target="_blank" rel="noopener" class="social-link magnetic-btn" aria-label="GitHub">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/in/jonasbondoc" target="_blank" rel="noopener" class="social-link magnetic-btn" aria-label="LinkedIn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://m.me/jjbondoc07" target="_blank" rel="noopener" class="social-link magnetic-btn" aria-label="Facebook Messenger">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.373 0 0 4.836 0 10.8c0 3.396 1.728 6.426 4.428 8.406V24l4.104-2.268c1.092.3 2.256.468 3.468.468 6.627 0 12-4.836 12-10.8S18.627 0 12 0zm1.2 14.4l-3.06-3.264-5.34 3.264 5.88-6.228 3.12 3.264 5.28-3.264-5.88 6.228z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm" data-scroll-reveal="fade-right" data-scroll-delay="0.2">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Jonas Bondoc" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="jonas@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-submit magnetic-btn">
+                        <span>Send Message</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M19 1L9 11M19 1l-6 18-4-8-8-4 18-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<!-- Resume Section -->
+    <section id="resume" class="resume page-section">
+        <div class="container">
+            <div class="section-header" data-scroll-reveal="fade-up">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Resume</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="resume-content" data-scroll-reveal="fade-up" data-scroll-delay="0.1">
+                <div class="resume-intro">
+                    <p class="resume-text">
+                        Download my complete resume to learn more about my professional experience, education, technical skills, and achievements. The PDF includes detailed information about my work history, certifications, and project portfolio.
+                    </p>
+                </div>
+
+                <div class="resume-preview">
+                    <div class="preview-card" data-scroll-reveal="scale-up" data-scroll-delay="0.2">
+                        <div class="preview-header">
+                            <div class="preview-icon">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="preview-info">
+                                <h3>Jonas_Bondoc_Resume.pdf</h3>
+                                <p>Last updated: February 2026</p>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-details">
+                            <h4>What's Included:</h4>
+                            <ul>
+                                <li data-scroll-reveal="fade-left" data-scroll-delay="0.25">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Professional Summary
+                                </li>
+                                
+                                <li data-scroll-reveal="fade-left" data-scroll-delay="0.35">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Technical Skills & Technologies
+                                </li>
+                                <li data-scroll-reveal="fade-left" data-scroll-delay="0.4">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Education & Certifications
+                                </li>
+                                <li data-scroll-reveal="fade-left" data-scroll-delay="0.45">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Notable Projects Portfolio
+                                </li>
+                                <li data-scroll-reveal="fade-left" data-scroll-delay="0.5">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Contact Information
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="download-actions">
+                            <a href="resume/Jonas_Bondoc_Resume.pdf" class="btn btn-primary btn-download magnetic-btn" download>
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M17 13v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3M6 10l4 4m0 0l4-4m-4 4V2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Download Resume (PDF)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" data-scroll-reveal="fade-up">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <!-- Dark mode logo (default) -->
+                    <img src="photos/jb logo - dark.png" alt="JB Logo" class="logo-img logo-dark">
+                    <!-- Light mode logo (shown in light mode) -->
+                    <img src="photos/jb logo - light.png" alt="JB Logo" class="logo-img logo-light">
+                </div>
+                <p class="footer-text">
+                    Built with passion and precision. Designed for performance.
+                </p>
+                <p class="footer-copyright">
+                    &copy; 2026 Jonas Bondoc. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
