@@ -266,7 +266,7 @@ function initSkillBars() {
 }
 
 // ===================================
-// CONTACT FORM
+// CONTACT FORM WITH EMAILJS
 // ===================================
 function initContactForm() {
     const form = document.getElementById('contactForm');
@@ -293,16 +293,32 @@ function initContactForm() {
         submitBtn.innerHTML = '<span>Sending...</span>';
         submitBtn.disabled = true;
         
-        // Simulate form submission (replace with actual API call)
-        setTimeout(() => {
-            // Success simulation
+        // Send email using EmailJS
+        try {
+            const response = await emailjs.send(
+                'service_b8sqidt',      // service ID
+                'template_95ypvs2',     // Template ID
+                {
+                    from_name: data.name,
+                    from_email: data.email,
+                    subject: data.subject,
+                    message: data.message,
+                    to_email: 'jjbondoc07@gmail.com'
+                }
+            );
+            
+            console.log('Email sent successfully:', response);
             showMessage('Thank you for your message! I\'ll get back to you soon.', 'success');
             form.reset();
             
+        } catch (error) {
+            console.error('EmailJS Error:', error);
+            showMessage('Sorry, something went wrong. Please try again later.', 'error');
+        } finally {
             // Reset button
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-        }, 2000);
+        }
     });
     
     function validateForm(data) {
@@ -326,7 +342,6 @@ function initContactForm() {
         }, 5000);
     }
 }
-
 // ===================================
 // BACK TO TOP BUTTON
 // ===================================
