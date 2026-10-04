@@ -2,7 +2,7 @@
 
 A racing-themed personal portfolio for **Jonas Jason Bondoc**, a BSIT student specializing in Web Development at Holy Angel University (San Fernando, Pampanga). It shows my projects, certifications, tech stack and resume, and lets visitors contact me directly.
 
-**Live site:** _link coming after the first deploy_
+**Live site:** https://jonasbondoc26.github.io/web-portfolio/
 
 Built with **Next.js 15** and **React 19**. The whole site exports to plain static files, so it runs on any static host (GitHub Pages, Netlify, Vercel, Cloudflare Pages) with no server or database.
 
