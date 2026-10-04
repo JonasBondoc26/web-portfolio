@@ -49,7 +49,7 @@ export default function Resume() {
                                     </svg>
                                 </div>
                                 <div className="preview-info">
-                                    <h3>Jonas_Bondoc_Resume.pdf</h3>
+                                    <h3>Jonas_Bondoc_<wbr />Resume.pdf</h3>
                                     <p>Last updated: February 2026</p>
                                 </div>
                             </div>

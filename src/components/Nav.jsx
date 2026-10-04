@@ -24,6 +24,21 @@ export default function Nav() {
         if (!onProjectsPage) setActive(currentSection(SECTION_IDS, y) || 'home');
     });
 
+    // Close the menu when the page changes, and when the window grows past the mobile layout.
+    useEffect(() => { setOpen(false); }, [pathname]);
+    useEffect(() => {
+        const wide = window.matchMedia('(min-width: 901px)');
+        const onChange = () => { if (wide.matches) setOpen(false); };
+        wide.addEventListener('change', onChange);
+        return () => wide.removeEventListener('change', onChange);
+    }, []);
+
+    // While the menu is open, the page behind it doesn't scroll.
+    useEffect(() => {
+        document.documentElement.classList.toggle('menu-open', open);
+        return () => document.documentElement.classList.remove('menu-open');
+    }, [open]);
+
     useEffect(() => {
         const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
         document.addEventListener('keydown', onKey);
@@ -62,7 +77,7 @@ export default function Nav() {
                     className={`nav-toggle${open ? ' active' : ''}`}
                     id="navToggle"
                     type="button"
-                    aria-label="Menu"
+                    aria-label={open ? 'Close menu' : 'Open menu'}
                     aria-expanded={open}
                     aria-controls="navMenu"
                     onClick={() => setOpen(!open)}

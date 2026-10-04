@@ -41,6 +41,16 @@ export const metadata = {
     },
 };
 
+// Phone browsers: tint the address bar to match the site, and let the page reach under
+// the notch / home bar (the lap bar adds the safe-area padding back).
+export const viewport = {
+    themeColor: [
+        { media: '(prefers-color-scheme: dark)', color: '#101218' },
+        { media: '(prefers-color-scheme: light)', color: '#eef0f4' },
+    ],
+    viewportFit: 'cover',
+};
+
 // Runs before the page paints, so there is no flash of the wrong theme, the loading
 // screen is up from the very first frame, and on the home page the hero car is already
 // parked off-screen for the start lights. Only full page loads run this, never in-site navigation.
