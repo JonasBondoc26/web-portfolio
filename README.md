@@ -1,6 +1,6 @@
 # Jonas Bondoc — Developer Portfolio
 
-A racing-themed personal portfolio for **Jonas Jason Bondoc**, a BSIT student specializing in Web Development at Holy Angel University (San Fernando, Pampanga). It shows my projects, certifications, tech stack and resume, and lets visitors contact me directly.
+A racing-themed personal portfolio
 
 **Live site:** https://jonasbondoc26.github.io/web-portfolio/
 
