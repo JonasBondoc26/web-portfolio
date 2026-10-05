@@ -6,7 +6,7 @@ export const projects = [
         "title": "Koma PH E-Commerce Site",
         "placeholder": "E-Commerce Site",
         "category": "Full Stack Development",
-        "description": "Built with the MEVN stack (MongoDB, Express, Vue and Node.js), this system was made to assist KOMA PH in shifting to less manual work and a more coordinated, effective, and factual system. The implementation of such a system will allow the business to streamline operations, minimize human mistakes, increase customer satisfaction, and provide a stable basis on which the expansion will take place in the future. The project also shows how web technologies can be used in addressing real-life management issues of business.",
+        "description": "An online store and order management system for KOMA PH, a Filipino streetwear brand from Pampanga, built with the MEVN stack (MongoDB, Express, Vue and Node.js). Shoppers can browse the V1 and Drift collections, save favorites to a wishlist, and check out with Cash on Delivery, GCash, or Bank Transfer. Signed-in customers get a profile dashboard with their order history and total spent, and passwords are hashed with bcrypt. The system moves KOMA PH away from manual order tracking toward one coordinated workflow, cutting down on human error and giving the business a stable base to grow on.",
         "features": [
             "Authentication-Aware Logic",
             "Smart Cart System",
@@ -25,7 +25,7 @@ export const projects = [
             "Express.js",
             "Node.js"
         ],
-        "demo": "https://koma-ph.netlify.app",
+        "demo": "https://koma-ph-store.netlify.app",
         "github": "https://github.com/JonasBondoc26/6WCSERVER-WD-303-KOMA-PH-Inventory-and-Order-Management-System",
         "featured": true
     },
