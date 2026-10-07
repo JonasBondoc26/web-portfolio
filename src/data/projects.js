@@ -114,7 +114,7 @@ export const projects = [
             "CSS",
             "JavaScript"
         ],
-        "demo": "https://lockhub2.atwebpages.com",
+        "demo": "https://lockhub.infinityfreeapp.com",
         "github": "https://github.com/JonasBondoc26/LockHub",
         "featured": false
     },
