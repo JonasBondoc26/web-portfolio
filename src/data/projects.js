@@ -70,29 +70,6 @@ export const projects = [
         "featured": false
     },
     {
-        "slug": "student-budget-tracker",
-        "title": "Student Budget Tracker",
-        "placeholder": "Student Budget Tracker",
-        "category": "Full Stack Development",
-        "description": "A comprehensive web application for managing student budgets and allowances. Track expenses, set financial goals, and stay organized with this intuitive tool.",
-        "features": [
-            "User Authentication",
-            "Budget Tracking",
-            "Expense Management",
-            "Financial Goals",
-            "Statistics Dashboard"
-        ],
-        "tech": [
-            "Angular",
-            "CSS",
-            "TypeScript",
-            "Firebase"
-        ],
-        "demo": "https://student-budget-tracker-2a2bd.web.app",
-        "github": "https://github.com/JonasBondoc26/Student-Budget-and-Allowance-Tracker",
-        "featured": false
-    },
-    {
         "slug": "lockhub",
         "title": "LockHub",
         "placeholder": "Secure Password Vault",
@@ -116,6 +93,29 @@ export const projects = [
         ],
         "demo": "https://lockhub.infinityfreeapp.com",
         "github": "https://github.com/JonasBondoc26/LockHub",
+        "featured": false
+    },
+    {
+        "slug": "student-budget-tracker",
+        "title": "Student Budget Tracker",
+        "placeholder": "Student Budget Tracker",
+        "category": "Full Stack Development",
+        "description": "A comprehensive web application for managing student budgets and allowances. Track expenses, set financial goals, and stay organized with this intuitive tool.",
+        "features": [
+            "User Authentication",
+            "Budget Tracking",
+            "Expense Management",
+            "Financial Goals",
+            "Statistics Dashboard"
+        ],
+        "tech": [
+            "Angular",
+            "CSS",
+            "TypeScript",
+            "Firebase"
+        ],
+        "demo": "https://student-budget-tracker-2a2bd.web.app",
+        "github": "https://github.com/JonasBondoc26/Student-Budget-and-Allowance-Tracker",
         "featured": false
     },
     {
