@@ -101,5 +101,17 @@ export const certifications = [
         "org": "Amazon Web Services Training and Certification",
         "year": 2026,
         "url": "https://www.credly.com/badges/039dd898-fe00-4167-b467-3d021210c8ab/public_url"
+    },
+    {
+        "name": "Front-End Development Libraries V8",
+        "org": "freeCodeCamp",
+        "year": 2026,
+        "url": "https://www.freecodecamp.org/certification/jonasbondoc/front-end-development-libraries"
+    },
+    {
+        "name": "Claude Code 101",
+        "org": "Anthropic Education",
+        "year": 2026,
+        "url": "https://verify.skilljar.com/c/sod2dopkzsqn"
     }
 ];
