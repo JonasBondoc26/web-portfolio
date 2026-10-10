@@ -37,12 +37,12 @@ export default function ProjectCard({ project, delay = 0 }) {
             </div>
             <div className="project-info">
                 <div className="project-category">{category}</div>
-                <h3 className="project-title"><Link href={`/projects/${slug}`} data-cursor="View">{title}</Link></h3>
+                <h3 className="project-title"><Link href={`/projects/${slug}`} data-morph={`/projects/${slug}/`} data-cursor="View">{title}</Link></h3>
                 <p className="project-description">{description}</p>
                 <div className="project-tech">
                     {tech.map((name) => <span className="tech-tag" key={name}>{name}</span>)}
                 </div>
-                <Link href={`/projects/${slug}`} className="btn btn-primary project-more" data-cursor="View"><span>View project <i aria-hidden="true">→</i></span></Link>
+                <Link href={`/projects/${slug}`} data-morph={`/projects/${slug}/`} className="btn btn-primary project-more" data-cursor="View"><span>View project <i aria-hidden="true">→</i></span></Link>
             </div>
         </Reveal>
     );

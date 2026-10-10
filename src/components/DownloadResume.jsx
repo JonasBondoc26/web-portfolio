@@ -5,6 +5,18 @@ import { BASE } from '../lib/site';
 
 const line = { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' };
 
+const PDF = `${BASE}/resume/Jonas_Bondoc_Resume.pdf`;
+
+/** Opens the resume in the browser's PDF viewer, in a new tab. */
+export function ViewResume() {
+    return (
+        <a href={PDF} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M11 3h6v6M17 3l-8 8M15 12v4a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h4" {...line} /></svg>
+            <span>View Resume<span className="sr-only"> (opens in a new tab)</span></span>
+        </a>
+    );
+}
+
 /** The resume download button. After a click it confirms the download has started, then resets. */
 export default function DownloadResume() {
     const [started, setStarted] = useState(false);
@@ -13,7 +25,7 @@ export default function DownloadResume() {
 
     return (
         <a
-            href={`${BASE}/resume/Jonas_Bondoc_Resume.pdf`}
+            href={PDF}
             className={`btn btn-primary btn-download${started ? ' is-started' : ''}`}
             download
             onClick={() => {

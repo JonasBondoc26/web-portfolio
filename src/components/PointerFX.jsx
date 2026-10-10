@@ -3,22 +3,32 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { prefersReducedMotion } from '../lib/scroll';
+import logoDark from '../assets/logo-dark.png';
+import logoLight from '../assets/logo-light.png';
+import Car from './Car';
 
 const INTERACTIVE = 'a, button, [data-cursor], label, summary';
 const MAGNETIC = '.btn, [data-magnetic]';
+// What the lens can look at: the element under the pointer, and the part of it to line up with.
+const LENSES = [
+    { kind: 'logo', hover: '.nav-logo', target: 'a' },
+    { kind: 'car', hover: '.hero-car', target: '.car' },
+];
 
 /* One pointer listener for the whole site (mouse only, and off when motion is reduced):
    - data-tilt elements lean toward the pointer and get --mx / --my for a spotlight
    - buttons (.btn, data-magnetic) pull a little toward the pointer
-   - a ring trails the pointer, grows over anything clickable, and shows data-cursor text */
+   - a ring trails the pointer, grows over anything clickable, and shows data-cursor text
+   - over the nav logo or the hero car the ring becomes a lens that shows it in the other theme */
 export default function PointerFX() {
     const ringRef = useRef(null);
     const labelRef = useRef(null);
+    const lensRef = useRef(null);
     const pathname = usePathname();
 
     // A new page appears under a mouse that hasn't moved, so drop the old hover state.
     useEffect(() => {
-        ringRef.current?.classList.remove('is-hover', 'has-label', 'is-text', 'is-down');
+        ringRef.current?.classList.remove('is-hover', 'has-label', 'is-text', 'is-down', 'is-lens', 'lens-logo', 'lens-car');
         if (labelRef.current) labelRef.current.textContent = '';
     }, [pathname]);
 
@@ -26,10 +36,13 @@ export default function PointerFX() {
         if (prefersReducedMotion() || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
         const ring = ringRef.current;
         const label = labelRef.current;
+        const lens = lensRef.current;
         document.documentElement.classList.add('has-cursor');
 
         let tiltEl = null;
         let magnetEl = null;
+        let lensEl = null;
+        let lensKind = '';
         let last = null;
         let raf = 0;
         const pos = { x: -100, y: -100 };
@@ -70,6 +83,20 @@ export default function PointerFX() {
             pos.x += (target.x - pos.x) * 0.22;
             pos.y += (target.y - pos.y) * 0.22;
             ring.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+            // Line the lens's copy up with the real thing under it.
+            if (lensEl) {
+                const r = lensEl.getBoundingClientRect();
+                const radius = lens.offsetWidth / 2;
+                lens.style.setProperty('--lx', `${r.left - pos.x + radius}px`);
+                lens.style.setProperty('--ly', `${r.top - pos.y + radius}px`);
+                lens.style.setProperty('--lw', `${r.width}px`);
+                lens.style.setProperty('--lh', `${r.height}px`);
+                if (lensKind === 'car') {
+                    // Turn the copy's wheels with the real ones (HeroCar.jsx spins them on scroll).
+                    const real = lensEl.querySelectorAll('.car-wheel');
+                    lens.querySelectorAll('.car-wheel').forEach((w, i) => { w.style.transform = real[i]?.style.transform || ''; });
+                }
+            }
             if (Math.abs(target.x - pos.x) > 0.3 || Math.abs(target.y - pos.y) > 0.3) raf = requestAnimationFrame(frame);
         };
         const wake = () => { if (!raf) raf = requestAnimationFrame(frame); };
@@ -93,6 +120,13 @@ export default function PointerFX() {
                 magnetEl = magnet;
             }
 
+            const found = LENSES.find((l) => t?.closest(l.hover));
+            lensEl = found ? t.closest(found.hover).querySelector(found.target) : null;
+            lensKind = lensEl ? found.kind : '';
+            ring.classList.toggle('is-lens', !!lensEl);
+            ring.classList.toggle('lens-logo', lensKind === 'logo');
+            ring.classList.toggle('lens-car', lensKind === 'car');
+
             const hit = t?.closest(INTERACTIVE);
             const text = hit?.closest('[data-cursor]')?.dataset.cursor || '';
             ring.classList.toggle('is-hover', !!hit);
@@ -106,8 +140,8 @@ export default function PointerFX() {
         const onLeave = () => {
             if (tiltEl) resetTilt(tiltEl);
             if (magnetEl) resetMagnet(magnetEl);
-            tiltEl = magnetEl = null;
-            ring.classList.remove('is-on');
+            tiltEl = magnetEl = lensEl = null;
+            ring.classList.remove('is-on', 'is-lens', 'lens-logo', 'lens-car');
         };
         const onDown = () => ring.classList.add('is-down');
         const onUp = () => ring.classList.remove('is-down');
@@ -129,6 +163,13 @@ export default function PointerFX() {
     return (
         <div className="cursor-ring" ref={ringRef} aria-hidden="true">
             <span className="cursor-label" ref={labelRef} />
+            <span className="cursor-lens" ref={lensRef}>
+                <span className="cursor-lens-inner">
+                    <img src={logoDark.src} alt="" className="lens-logo-dark" />
+                    <img src={logoLight.src} alt="" className="lens-logo-light" />
+                    <span className="lens-car-copy"><Car /></span>
+                </span>
+            </span>
         </div>
     );
 }

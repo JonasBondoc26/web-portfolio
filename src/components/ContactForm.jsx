@@ -13,10 +13,26 @@ function problemWith(data) {
     return null;
 }
 
+const WAVE = [0.35, 0.7, 0.5, 0.95, 0.6, 0.8, 0.4, 1, 0.55, 0.75, 0.45, 0.9, 0.6, 0.35];
+
+/** The "team radio" caption that pops up once a message is sent, like the ones on F1 TV. */
+function TeamRadio() {
+    return (
+        <div className="team-radio" aria-hidden="true">
+            <div className="team-radio-head">
+                <b>Jonas Bondoc</b>
+                <span>Team radio</span>
+                <i className="team-radio-wave">{WAVE.map((h, i) => <i key={i} style={{ '--h': h, '--w': i }} />)}</i>
+            </div>
+            <p className="team-radio-text">&ldquo;Copy that, message received. I&apos;ll get back to you soon.&rdquo;</p>
+        </div>
+    );
+}
+
 export default function ContactForm() {
     const [sending, setSending] = useState(false);
     const [status, setStatus] = useState(null);      // { type: 'success' | 'error', text }
-    const [justSent, setJustSent] = useState(false); // plays the chequered-flag finish
+    const [justSent, setJustSent] = useState(false); // plays the chequered-flag finish and the team radio
     const sentTimer = useRef(0);
 
     const onSubmit = async (event) => {
@@ -41,7 +57,7 @@ export default function ContactForm() {
             form.reset();
             setJustSent(true);
             clearTimeout(sentTimer.current);
-            sentTimer.current = setTimeout(() => setJustSent(false), 2200);
+            sentTimer.current = setTimeout(() => setJustSent(false), 5200);
         } catch (error) {
             console.error('EmailJS error:', error);
             setStatus({ type: 'error', text: `The message could not be sent. Email ${EMAIL} directly instead.` });
@@ -76,6 +92,7 @@ export default function ContactForm() {
                 </svg>
             </button>
 
+            {justSent && <TeamRadio />}
             <div className={`form-message${status ? ` ${status.type}` : ''}`} role="status">{status ? status.text : ''}</div>
         </Reveal>
     );

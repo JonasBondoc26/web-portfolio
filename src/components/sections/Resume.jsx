@@ -1,6 +1,6 @@
 import Reveal from '../Reveal';
 import SectionHeader from '../SectionHeader';
-import DownloadResume from '../DownloadResume';
+import DownloadResume, { ViewResume } from '../DownloadResume';
 
 const INCLUDED = [
     'Professional Summary',
@@ -71,6 +71,7 @@ export default function Resume() {
 
                             <div className="download-actions">
                                 <DownloadResume />
+                                <ViewResume />
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import SpeedStreaks from '../components/SpeedStreaks';
 import BackToTop from '../components/BackToTop';
 import PointerFX from '../components/PointerFX';
 import RouteWipe from '../components/RouteWipe';
+import ProjectMorph from '../components/ProjectMorph';
 import SpeedSkew from '../components/SpeedSkew';
 import Loader from '../components/Loader';
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }) {
                 <BackToTop />
                 <PointerFX />
                 <RouteWipe />
+                <ProjectMorph />
                 <SpeedSkew />
             </body>
         </html>
