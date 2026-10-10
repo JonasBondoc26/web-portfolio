@@ -281,6 +281,26 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .hero-car-launch.is-braking::after { animation: tyre-smoke 0.9s ease-out; }
 @keyframes tyre-smoke { 0% { opacity: 0; transform: scale(0.4); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-40%, -30%) scale(1.8); } }
 
+/* Tap the car to rev it (HeroCar.jsx): it shudders on its springs and puffs smoke out the back. */
+.hero-car-launch { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hero-car-launch.is-revving .car { transform-origin: 50% 100%; animation: rev-shake 0.8s linear; }
+.hero-car-launch.is-revving::after { animation: tyre-smoke 0.8s ease-out; }
+@keyframes rev-shake {
+    0%, 100% { transform: none; }
+    10%, 30%, 50%, 70% { transform: translate(-1.5px, -1px) rotate(-0.6deg); }
+    20%, 40%, 60%, 80% { transform: translate(1.5px, 0.5px) rotate(0.4deg); }
+}
+.rev-hint { display: none; }
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+    .rev-hint {
+        display: block; position: absolute; left: calc(clamp(220px, 30vw, 420px) * 0.55); top: -0.4rem;
+        font: 600 italic 0.75rem var(--font-display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+        animation: rev-hint 2.4s ease-in-out 3.5s infinite both;
+    }
+    .lights-pending .rev-hint { visibility: hidden; }
+    @keyframes rev-hint { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+}
+
 /* Start lights */
 .lights {
     position: absolute; right: 0; top: 18%;
@@ -1028,6 +1048,20 @@ html.is-morphing::view-transition-old(root), html.is-morphing::view-transition-n
 .form-message.error { animation: shake 0.4s ease; }
 @keyframes shake { 20%, 60% { translate: -6px 0; } 40%, 80% { translate: 6px 0; } }
 
+/* Tap sparks (TouchFX.jsx): little streaks fly off the finger and burn out. */
+.spark-burst { position: fixed; z-index: 210; width: 0; height: 0; pointer-events: none; }
+.spark-burst i {
+    position: absolute; left: 0; top: -1px; width: 12px; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--livery-1), #fff7d6);
+    transform-origin: 0 50%; opacity: 0;
+    animation: spark 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes spark {
+    0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scaleX(0.4); }
+    60% { opacity: 1; }
+    100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--d)) scaleX(1) translateY(6px); }
+}
+
 /* Team radio: after the flag, an F1 TV radio caption plays over the bottom of the form. */
 .team-radio {
     position: absolute; left: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem); z-index: 2;
@@ -1260,6 +1294,16 @@ html.is-morphing::view-transition-old(root), html.is-morphing::view-transition-n
     .project-card:active, .tech-item:active, .season-row:active, .social-link:active, .project-filter:active { scale: 0.98; }
 }
 
+/* Phones and tablets: project cards drive in from the right as they scroll into view,
+   where the browser supports scroll-driven animation. */
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+        .project-card { animation: drive-in linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+        .tech-group-name { animation: drive-in linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    }
+    @keyframes drive-in { from { opacity: 0; translate: 45% 0; } to { opacity: 1; translate: 0 0; } }
+}
+
 /* iPhones and other phones with a home bar: keep the lap bar clear of it. */
 .lap { height: calc(var(--lap-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); }
 body { padding-bottom: calc(var(--lap-h) + env(safe-area-inset-bottom)); }
@@ -1292,7 +1336,7 @@ body { padding-bottom: calc(var(--lap-h) + env(safe-area-inset-bottom)); }
     /* About: photo and name side by side, as a compact driver card. */
     .driver-card { display: grid; grid-template-columns: 112px minmax(0, 1fr); max-width: none; width: 100%; }
     .driver-wrap { max-width: none; }
-    .liquid-blob { display: none; }   /* the compact card is too short for it */
+    .liquid-blob { inset: -14px auto -14px -14px; width: 150px; }   /* the compact card: a smaller pool behind the photo */
     .driver-card img { height: 100%; }
     .driver-card figcaption { display: flex; flex-direction: column; justify-content: center; border-top: 0; border-left: 3px solid var(--accent); padding: 0.75rem 1rem; }
     .driver-card strong { font-size: 1.35rem; }

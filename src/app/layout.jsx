@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SpeedStreaks from '../components/SpeedStreaks';
 import BackToTop from '../components/BackToTop';
 import PointerFX from '../components/PointerFX';
+import TouchFX from '../components/TouchFX';
 import RouteWipe from '../components/RouteWipe';
 import ProjectMorph from '../components/ProjectMorph';
 import SpeedSkew from '../components/SpeedSkew';
@@ -84,6 +85,7 @@ export default function RootLayout({ children }) {
                 <Footer />
                 <BackToTop />
                 <PointerFX />
+                <TouchFX />
                 <RouteWipe />
                 <ProjectMorph />
                 <SpeedSkew />

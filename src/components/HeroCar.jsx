@@ -22,6 +22,21 @@ export default function HeroCar() {
 
     const [lit, setLit] = useState(0);
     const [braking, setBraking] = useState(false);
+    const [revving, setRevving] = useState(0);     // tap the car: it revs on the grid
+    const [revvedOnce, setRevvedOnce] = useState(false);
+
+    useEffect(() => {
+        if (!revving) return undefined;
+        const t = setTimeout(() => setRevving(0), 800);
+        return () => clearTimeout(t);
+    }, [revving]);
+
+    const rev = () => {
+        if (prefersReducedMotion() || document.documentElement.classList.contains('lights-pending')) return;
+        setRevving((n) => n + 1);
+        setRevvedOnce(true);
+        navigator.vibrate?.([18, 40, 18, 40, 30]);
+    };
 
     useEffect(() => {
         const root = document.documentElement;
@@ -94,9 +109,11 @@ export default function HeroCar() {
                 <div className="lights">
                     {Array.from({ length: LIGHTS }, (_, i) => <i key={i} className={i < lit ? 'on' : undefined} />)}
                 </div>
-                <div className={`hero-car-launch${braking ? ' is-braking' : ''}`} ref={launchRef}>
+                <div className={`hero-car-launch${braking ? ' is-braking' : ''}${revving ? ' is-revving' : ''}`} ref={launchRef} onClick={rev}>
                     <div className="hero-car" ref={carRef}><Car /></div>
                 </div>
+                {/* Touch screens only (see globals.css); gone once the car has been revved. */}
+                {!revvedOnce && <span className="rev-hint">Tap to rev</span>}
             </div>
         </div>
     );

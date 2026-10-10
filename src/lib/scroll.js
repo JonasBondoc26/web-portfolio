@@ -16,6 +16,24 @@ export const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 export const prefersReducedMotion = () =>
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/** Runs start() while the media query matches, and its cleanup when it stops matching,
+    so effects follow the device (and DevTools device mode) without a reload.
+    Returns the cleanup for a useEffect. */
+export function whileMedia(query, start) {
+    const mq = window.matchMedia(query);
+    let stop = null;
+    const sync = () => {
+        stop?.();
+        stop = mq.matches ? start() || null : null;
+    };
+    sync();
+    mq.addEventListener('change', sync);
+    return () => {
+        mq.removeEventListener('change', sync);
+        stop?.();
+    };
+}
+
 const listeners = new Set();
 let started = false;
 let running = false;

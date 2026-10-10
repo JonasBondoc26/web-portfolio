@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import { prefersReducedMotion } from '../lib/scroll';
+import { whileMedia } from '../lib/scroll';
 import logoDark from '../assets/logo-dark.png';
 import logoLight from '../assets/logo-light.png';
 import Car from './Car';
@@ -32,8 +32,8 @@ export default function PointerFX() {
         if (labelRef.current) labelRef.current.textContent = '';
     }, [pathname]);
 
-    useEffect(() => {
-        if (prefersReducedMotion() || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
+    // Mouse only, and off when motion is reduced. Switches on and off as that changes.
+    useEffect(() => whileMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
         const ring = ringRef.current;
         const label = labelRef.current;
         const lens = lensRef.current;
@@ -156,9 +156,11 @@ export default function PointerFX() {
             document.removeEventListener('pointerup', onUp);
             document.documentElement.removeEventListener('pointerleave', onLeave);
             document.documentElement.classList.remove('has-cursor');
+            onLeave();                               // un-tilt, un-pull and hide the ring
+            ring.classList.remove('is-hover', 'has-label', 'is-text', 'is-down');
             cancelAnimationFrame(raf);
         };
-    }, []);
+    }), []);
 
     return (
         <div className="cursor-ring" ref={ringRef} aria-hidden="true">
