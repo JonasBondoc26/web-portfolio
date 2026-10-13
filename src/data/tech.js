@@ -84,6 +84,19 @@ export const tech = [
         "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
     },
     {
+        "name": "React Native",
+        "compound": "medium",
+        "group": "Frameworks",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/reactnative/reactnative-original.svg"
+    },
+    {
+        "name": "Expo",
+        "compound": "medium",
+        "group": "Frameworks",
+        "mono": true,
+        "icon": "https://cdn.simpleicons.org/expo"
+    },
+    {
         "name": "Angular",
         "compound": "medium",
         "group": "Frameworks",
@@ -97,7 +110,7 @@ export const tech = [
     },
     {
         "name": "Laravel",
-        "compound": "hard",
+        "compound": "medium",
         "group": "Frameworks",
         "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg"
     },
@@ -112,6 +125,12 @@ export const tech = [
         "compound": "medium",
         "group": "Frameworks",
         "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+    },
+    {
+        "name": "Leaflet",
+        "compound": "medium",
+        "group": "Frameworks",
+        "icon": "https://cdn.simpleicons.org/leaflet"
     },
     {
         "name": "MySQL",
@@ -130,6 +149,12 @@ export const tech = [
         "compound": "soft",
         "group": "Platforms",
         "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+    },
+    {
+        "name": "OpenStreetMap",
+        "compound": "medium",
+        "group": "Platforms",
+        "icon": "https://cdn.simpleicons.org/openstreetmap"
     },
     {
         "name": "WordPress",

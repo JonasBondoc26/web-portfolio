@@ -3,10 +3,10 @@ import SectionHeader from '../SectionHeader';
 import DownloadResume, { ViewResume } from '../DownloadResume';
 
 const INCLUDED = [
-    'Professional Summary',
-    'Technical Skills & Technologies',
-    'Education & Certifications',
-    'Notable Projects Portfolio',
+    'Education',
+    'Client Work Experience',
+    'Notable Projects',
+    'Technical Skills & Certifications',
     'Contact Information',
 ];
 
@@ -50,7 +50,7 @@ export default function Resume() {
                                 </div>
                                 <div className="preview-info">
                                     <h3>Jonas_Bondoc_<wbr />Resume.pdf</h3>
-                                    <p>Last updated: February 2026</p>
+                                    <p>Last updated: October 2026</p>
                                 </div>
                             </div>
 

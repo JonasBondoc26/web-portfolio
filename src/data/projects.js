@@ -2,6 +2,36 @@
 // To show a screenshot, put it in public/photos/ and add  "image": "/photos/your-shot.jpg"  to the project.
 export const projects = [
     {
+        "slug": "smarttoll-route-planner",
+        "title": "SmartToll Route Planner",
+        "placeholder": "Toll Route Planner",
+        "category": "Full Stack Development",
+        "description": "A toll route planner with RFID balance tracking for motorists in Luzon, built as a capstone project at Holy Angel University with a Laravel REST API, a React web app and a React Native (Expo) mobile app. Drivers pick any landmark or pin a spot on the map, compare up to four routes labeled fastest, shortest and cheapest, and see every toll plaza, the estimated fee for their vehicle class, and whether their Easytrip or Autosweep balance covers the trip before they reach the gate. It covers nine expressway systems, including NLEX/SCTEX, TPLEX, Skyway/SLEX, NAIAX, STAR, CALAX and CAVITEX, with 95 toll plazas and 2,311 rates taken from the Toll Regulatory Board. On the phone it adds GPS turn-by-turn directions with toll plaza alerts, and an admin module keeps the toll data current through TRB or CSV imports with a full change log.",
+        "features": [
+            "Multi-Route Comparison (Fastest / Shortest / Cheapest)",
+            "Per-Expressway Toll Fee Breakdown",
+            "RFID Balance Check & Auto-Deduction",
+            "Landmark Search & Map Pinning Across Luzon",
+            "GPS Turn-by-Turn Navigation with Toll Plaza Alerts",
+            "Saved Routes & Trip History with Plan Again",
+            "Google Sign-In & Token Authentication (Sanctum)",
+            "Admin Toll Matrix with TRB/CSV Import & Change Log"
+        ],
+        "tech": [
+            "React",
+            "React Native",
+            "Expo",
+            "Laravel",
+            "PHP",
+            "MySQL",
+            "Leaflet",
+            "OpenStreetMap"
+        ],
+        "demo": "https://smart-toll-production.up.railway.app/login",
+        "github": "https://github.com/JonasBondoc26/Smart-Toll",
+        "featured": true
+    },
+    {
         "slug": "koma-ph-e-commerce-site",
         "title": "Koma PH E-Commerce Site",
         "placeholder": "E-Commerce Site",
