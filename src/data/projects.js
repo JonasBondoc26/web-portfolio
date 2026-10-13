@@ -73,7 +73,7 @@ export const projects = [
         ],
         "demo": "https://galangdentalcenter.com/",
         "github": null,
-        "featured": true
+        "featured": false
     },
     {
         "slug": "diaweb",
