@@ -1,8 +1,7 @@
 import HeroTitle from '../HeroTitle';
 import HeroCar from '../HeroCar';
 import Stat from '../Stat';
-import RoleCycler from '../RoleCycler';
-import HeroTelemetry from '../HeroTelemetry';
+import HeroBuild from '../HeroBuild';
 import { projects } from '../../data/projects';
 import { certifications } from '../../data/certifications';
 
@@ -10,14 +9,14 @@ export default function Hero() {
     return (
         <section id="home" className="hero">
             <div className="container">
-                <p className="hero-role"><RoleCycler roles={['Full-stack developer', 'Web app builder', 'WordPress + SEO']} /> in San Fernando, Pampanga</p>
+                <p className="hero-role">Full-stack developer · <span className="nowrap">Graduating 2027</span> · <span className="nowrap">Open to full-stack roles</span></p>
                 <div className="hero-head">
                     <div className="hero-title-wrap"><HeroTitle lines={['Jonas', 'Bondoc']} /></div>
-                    <HeroTelemetry />
+                    <HeroBuild />
                 </div>
                 <div className="hero-row">
                     <p className="hero-description">
-                        I build web apps and business sites, from Vue and Node storefronts to WordPress sites that rank on the first page.
+                        I build full-stack web apps that people actually use: a toll route planner covering nine Luzon expressway systems, a clinic website that reached page one of local search, and an IoT alert system for a diabetes-care client.
                     </p>
                     <div className="hero-cta">
                         <a href="#projects" className="btn btn-primary">

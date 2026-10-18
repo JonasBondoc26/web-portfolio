@@ -1,0 +1,332 @@
+{
+  "smarttoll-route-planner": {
+    "cover": {
+      "src": "/shots/smarttoll-route-planner/cover.webp",
+      "w": 1280,
+      "h": 800
+    },
+    "screens": [
+      {
+        "label": "Route planner",
+        "view": "/shots/smarttoll-route-planner/desktop-planner-view.webp",
+        "full": "/shots/smarttoll-route-planner/desktop-planner-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false,
+        "isCover": true
+      },
+      {
+        "label": "Trip with toll breakdown",
+        "view": "/shots/smarttoll-route-planner/desktop-trip-view.webp",
+        "full": "/shots/smarttoll-route-planner/desktop-trip-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Dashboard",
+        "view": "/shots/smarttoll-route-planner/desktop-dashboard-view.webp",
+        "full": "/shots/smarttoll-route-planner/desktop-dashboard-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Trip history",
+        "view": "/shots/smarttoll-route-planner/desktop-history-view.webp",
+        "full": "/shots/smarttoll-route-planner/desktop-history-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Mobile: plan a route",
+        "view": "/shots/smarttoll-route-planner/phone-light-plan-view.webp",
+        "full": "/shots/smarttoll-route-planner/phone-light-plan-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: GPS navigation",
+        "view": "/shots/smarttoll-route-planner/phone-light-driving-view.webp",
+        "full": "/shots/smarttoll-route-planner/phone-light-driving-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: trip (dark)",
+        "view": "/shots/smarttoll-route-planner/phone-dark-trip-view.webp",
+        "full": "/shots/smarttoll-route-planner/phone-dark-trip-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: home (dark)",
+        "view": "/shots/smarttoll-route-planner/phone-dark-home-view.webp",
+        "full": "/shots/smarttoll-route-planner/phone-dark-home-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      }
+    ]
+  },
+  "koma-ph-e-commerce-site": {
+    "cover": {
+      "src": "/shots/koma-ph-e-commerce-site/cover.webp",
+      "w": 1280,
+      "h": 800
+    },
+    "screens": [
+      {
+        "label": "Home",
+        "view": "/shots/koma-ph-e-commerce-site/01-home-desktop-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/01-home-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false,
+        "isCover": true
+      },
+      {
+        "label": "Shop",
+        "view": "/shots/koma-ph-e-commerce-site/03-shop-desktop-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/03-shop-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Product page",
+        "view": "/shots/koma-ph-e-commerce-site/04-product-desktop-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/04-product-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Checkout",
+        "view": "/shots/koma-ph-e-commerce-site/11-checkout-desktop-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/11-checkout-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Mobile: home",
+        "view": "/shots/koma-ph-e-commerce-site/01-home-mobile-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/01-home-mobile-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: product",
+        "view": "/shots/koma-ph-e-commerce-site/04-product-mobile-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/04-product-mobile-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: cart",
+        "view": "/shots/koma-ph-e-commerce-site/12-cart-drawer-mobile-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/12-cart-drawer-mobile-full.webp",
+        "w": 480,
+        "h": 1038,
+        "phone": true
+      },
+      {
+        "label": "Mobile: my orders",
+        "view": "/shots/koma-ph-e-commerce-site/09-my-orders-mobile-view.webp",
+        "full": "/shots/koma-ph-e-commerce-site/09-my-orders-mobile-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      }
+    ]
+  },
+  "diaweb": {
+    "cover": {
+      "src": "/shots/diaweb/cover.webp",
+      "w": 1280,
+      "h": 800
+    },
+    "screens": [
+      {
+        "label": "Dashboard",
+        "view": "/shots/diaweb/desktop-dashboard-view.webp",
+        "full": "/shots/diaweb/desktop-dashboard-full.webp",
+        "w": 1600,
+        "h": 1000,
+        "phone": false,
+        "isCover": true
+      },
+      {
+        "label": "Add a reading",
+        "view": "/shots/diaweb/desktop-create-view.webp",
+        "full": "/shots/diaweb/desktop-create-full.webp",
+        "w": 1600,
+        "h": 809,
+        "phone": false
+      },
+      {
+        "label": "Mobile: dashboard",
+        "view": "/shots/diaweb/mobile-dashboard-view.webp",
+        "full": "/shots/diaweb/mobile-dashboard-full.webp",
+        "w": 371,
+        "h": 804,
+        "phone": true
+      },
+      {
+        "label": "Mobile: add a reading",
+        "view": "/shots/diaweb/mobile-create-view.webp",
+        "full": "/shots/diaweb/mobile-create-full.webp",
+        "w": 371,
+        "h": 804,
+        "phone": true
+      },
+      {
+        "label": "Mobile: sign in",
+        "view": "/shots/diaweb/mobile-login-view.webp",
+        "full": "/shots/diaweb/mobile-login-full.webp",
+        "w": 371,
+        "h": 804,
+        "phone": true
+      }
+    ]
+  },
+  "lockhub": {
+    "cover": {
+      "src": "/shots/lockhub/cover.webp",
+      "w": 1280,
+      "h": 800
+    },
+    "screens": [
+      {
+        "label": "Password vault",
+        "view": "/shots/lockhub/07-vault-desktop-view.webp",
+        "full": "/shots/lockhub/07-vault-desktop-full.webp",
+        "w": 1366,
+        "h": 854,
+        "phone": false,
+        "isCover": true
+      },
+      {
+        "label": "Password generator",
+        "view": "/shots/lockhub/10-generator-desktop-view.webp",
+        "full": "/shots/lockhub/10-generator-desktop-full.webp",
+        "w": 1366,
+        "h": 854,
+        "phone": false
+      },
+      {
+        "label": "Landing page",
+        "view": "/shots/lockhub/01-landing-desktop-view.webp",
+        "full": "/shots/lockhub/01-landing-desktop-full.webp",
+        "w": 1366,
+        "h": 854,
+        "phone": false
+      },
+      {
+        "label": "Add a password",
+        "view": "/shots/lockhub/08-vault-add-password-desktop-view.webp",
+        "full": "/shots/lockhub/08-vault-add-password-desktop-full.webp",
+        "w": 1366,
+        "h": 854,
+        "phone": false
+      },
+      {
+        "label": "Mobile: vault",
+        "view": "/shots/lockhub/07-vault-mobile-view.webp",
+        "full": "/shots/lockhub/07-vault-mobile-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: generator",
+        "view": "/shots/lockhub/10-generator-mobile-view.webp",
+        "full": "/shots/lockhub/10-generator-mobile-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      },
+      {
+        "label": "Mobile: sign in",
+        "view": "/shots/lockhub/05-login-mobile-view.webp",
+        "full": "/shots/lockhub/05-login-mobile-full.webp",
+        "w": 480,
+        "h": 1039,
+        "phone": true
+      }
+    ]
+  },
+  "taho-soy-avenue": {
+    "cover": {
+      "src": "/shots/taho-soy-avenue/cover.webp",
+      "w": 1280,
+      "h": 800
+    },
+    "screens": [
+      {
+        "label": "Home",
+        "view": "/shots/taho-soy-avenue/index-desktop-view.webp",
+        "full": "/shots/taho-soy-avenue/index-desktop-full.webp",
+        "w": 1451,
+        "h": 907,
+        "phone": false,
+        "isCover": true
+      },
+      {
+        "label": "Menu",
+        "view": "/shots/taho-soy-avenue/menu-desktop-view.webp",
+        "full": "/shots/taho-soy-avenue/menu-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Featured products",
+        "view": "/shots/taho-soy-avenue/feature-desktop-view.webp",
+        "full": "/shots/taho-soy-avenue/feature-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Contact",
+        "view": "/shots/taho-soy-avenue/contact-desktop-view.webp",
+        "full": "/shots/taho-soy-avenue/contact-desktop-full.webp",
+        "w": 1440,
+        "h": 900,
+        "phone": false
+      },
+      {
+        "label": "Mobile: home",
+        "view": "/shots/taho-soy-avenue/index-mobile-view.webp",
+        "full": "/shots/taho-soy-avenue/index-mobile-full.webp",
+        "w": 401,
+        "h": 869,
+        "phone": true
+      },
+      {
+        "label": "Mobile: menu",
+        "view": "/shots/taho-soy-avenue/menu-mobile-view.webp",
+        "full": "/shots/taho-soy-avenue/menu-mobile-full.webp",
+        "w": 390,
+        "h": 845,
+        "phone": true
+      },
+      {
+        "label": "Mobile: sign up",
+        "view": "/shots/taho-soy-avenue/sign-up-mobile-view.webp",
+        "full": "/shots/taho-soy-avenue/sign-up-mobile-full.webp",
+        "w": 480,
+        "h": 1040,
+        "phone": true
+      }
+    ]
+  }
+}

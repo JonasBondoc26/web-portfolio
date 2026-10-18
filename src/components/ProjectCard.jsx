@@ -1,11 +1,19 @@
 import Link from 'next/link';
 import Reveal from './Reveal';
 import { BASE } from '../lib/site';
+import { projectLinks, linkProps } from '../lib/projectLinks';
 import { projects } from '../data/projects';
+import shots from '../data/shots.json';
 
 export const DemoIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+
+export const DownloadIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3v12m0 0l-5-5m5 5l5-5M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -15,23 +23,33 @@ export const GitHubIcon = () => (
     </svg>
 );
 
+/** The icon for each kind of project link (see lib/projectLinks.js). */
+export const LinkIcon = ({ kind }) => (kind === 'download' ? <DownloadIcon /> : kind === 'code' ? <GitHubIcon /> : <DemoIcon />);
+
 /** One project card. Its features and full write-up are on its own page, /projects/<slug>/. */
 export default function ProjectCard({ project, delay = 0 }) {
-    const { slug, title, placeholder, category, description, tech, demo, github, image } = project;
+    const { slug, title, placeholder, category, description, tech, image } = project;
+
+    // A real screenshot when there is one (see scripts/optimize-shots.mjs); otherwise the title on livery stripes.
+    const cover = shots[slug]?.cover;
+    const src = cover ? `${BASE}${cover.src}` : image && `${BASE}${image}`;
 
     // Its place in the list, worn like a race number.
     const number = String(projects.findIndex((p) => p.slug === slug) + 1).padStart(2, '0');
 
     return (
-        <Reveal as="article" className="project-card" delay={delay} data-tilt="5">
+        <Reveal as="article" className="project-card" delay={delay}>
             <div className="project-image">
-                <span className="project-number" aria-hidden="true">{number}</span>
-                <div className="project-placeholder">{placeholder}</div>
-                {image && <img className="project-shot" src={`${BASE}${image}`} alt={`Screenshot of ${title}`} loading="lazy" />}
+                {/* The race number belongs to the stripe art; over a real screenshot it is clutter. */}
+                {!src && <span className="project-number" aria-hidden="true">{number}</span>}
+                {src
+                    ? <img className="project-shot" src={src} alt={`Screenshot of ${title}`} loading="lazy" width={cover?.w} height={cover?.h} />
+                    : <div className="project-placeholder">{placeholder}</div>}
                 <div className="project-overlay">
                     <div className="project-links">
-                        {demo && <a href={demo} className="project-link" target="_blank" rel="noopener" data-cursor="Live"><DemoIcon />Live Demo</a>}
-                        {github && <a href={github} className="project-link" target="_blank" rel="noopener" data-cursor="Code"><GitHubIcon />GitHub</a>}
+                        {projectLinks(project).map(({ kind, href, label, cursor }) => (
+                            <a key={kind} href={href} className={`project-link is-${kind}`} data-cursor={cursor} {...linkProps(kind)}><LinkIcon kind={kind} />{label}</a>
+                        ))}
                     </div>
                 </div>
             </div>

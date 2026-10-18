@@ -109,7 +109,6 @@ export default function CertSeasons({ certifications }) {
                         >
                             <span className="season-ghost" aria-hidden="true">{year}</span>
                             <div className="season-side">
-                                <p className="season-kicker">Season {String(i + 1).padStart(2, '0')}</p>
                                 <p className="season-year">{year}</p>
                                 <p className="season-count"><b>{certs.length}</b> {certs.length === 1 ? 'certification' : 'certifications'}</p>
                                 <ul className="season-orgs">
@@ -121,7 +120,7 @@ export default function CertSeasons({ certifications }) {
                                 {certs.map(({ name, org, url }, j) => (
                                     <li key={name} style={{ '--j': j }}>
                                         <a className="season-row" href={url} target="_blank" rel="noopener" data-cursor="Open">
-                                            <span className="season-pos">P{j + 1}</span>
+                                            <span className="season-pos">{j + 1}</span>
                                             <span className="season-name">{name}</span>
                                             <span className="season-org">{org}</span>
                                         </a>

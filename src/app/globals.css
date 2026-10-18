@@ -5,7 +5,7 @@
      2. Base                            7. Projects
      3. Navigation                      8. Contact
      4. Buttons + shared pieces         9. Resume + footer
-     5. Hero, car, start lights        10. Lap bar, streaks, reveal
+     5. Hero, car, start lights        10. Lap bar, reveal
    ========================================================= */
 
 /* ---------- 1. TOKENS ----------
@@ -28,10 +28,8 @@
     --accent: #c33543;     /* fills */
     --accent-ink: #f6b17a; /* accent text on the background */
     --on-accent: #ffffff;
-    --streak: #f6b17a;
     --ok: #5fd08a;
     --bad: #ff7a85;
-    --tech-icon-filter: invert(42%) sepia(0%) saturate(0%) brightness(93%) contrast(90%);
 
     --font-display: var(--font-barlow-condensed, 'Barlow Condensed'), 'Arial Narrow', 'Roboto Condensed', Impact, sans-serif;
     --font-body: var(--font-barlow, 'Barlow'), 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -59,10 +57,8 @@
     --muted: #515869;
     --accent: #5a45c9;
     --accent-ink: #4a37b4;
-    --streak: #5a45c9;
     --ok: #1c7f47;
     --bad: #c02535;
-    --tech-icon-filter: grayscale(1) contrast(0.9);
 }
 
 /* ---------- 2. BASE ---------- */
@@ -96,7 +92,9 @@ a, button { -webkit-tap-highlight-color: transparent; }
 
 .container { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
 
-section, .footer { position: relative; z-index: 1; }
+section { position: relative; z-index: 1; }
+/* Ambient particles (AmbientParticles.jsx): fixed behind everything, clicks pass through. */
+.particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 section { padding: clamp(4rem, 9vw, 7rem) 0; overflow-x: clip; }
 .about, .contact { background: var(--bg-alt); }
 
@@ -129,7 +127,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 [data-theme="light"] .logo-dark { display: none; }
 [data-theme="light"] .logo-light { display: block; }
 
-.nav-menu { display: flex; align-items: center; gap: 2rem; }
+.nav-menu, .nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-menu-foot { display: none; }
+.roll, .roll-ch { display: inline-block; }
+
+/* Bar links on desktop: letters roll up and the same letters roll in from below, one after another. */
+@media (min-width: 901px) and (hover: hover) {
+    .roll { line-height: 1.15; vertical-align: top; clip-path: inset(0.2em -0.3em 0.02em); }   /* clipped to the capitals' height, never the sides */
+    .roll-ch { position: relative; transition: transform 0.38s var(--ease-out); transition-delay: calc(var(--c) * 22ms); }
+    .roll-ch::after { content: attr(data-ch); position: absolute; left: 0; top: 100%; }
+    .nav-link:hover .roll-ch { transform: translateY(-100%); }
+}
 .nav-link {
     position: relative;
     font-family: var(--font-display);
@@ -223,6 +231,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 }
 
 .hero-role { font-size: 1.15rem; color: var(--muted); margin-bottom: 0.75rem; }
+.nowrap { white-space: nowrap; }
 .hero-title {
     font-size: clamp(3.4rem, min(15vw, 22vh), 14rem);   /* script.js then fits it to the width exactly */
     font-weight: 800; font-style: italic;
@@ -234,7 +243,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .hero-title span + span { padding-left: 0.5em; }      /* staggered, like a grid slot */
 
 .hero-row {
-    display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem;
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem 3rem;
     margin-top: clamp(1.5rem, 4vh, 2.5rem);
 }
 .hero-description { max-width: 34rem; font-size: 1.2rem; color: var(--muted); }
@@ -330,32 +339,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .about-text { max-width: 62ch; color: var(--muted); margin-bottom: 1.25rem; }
 .about-text:first-child { font-size: 1.3rem; line-height: 1.5; color: var(--text); }
 
-.driver-wrap { position: relative; width: 100%; max-width: 260px; justify-self: end; isolation: isolate; }
+.driver-wrap { width: 100%; max-width: 260px; justify-self: end; }
 .driver-card { background: var(--card); width: 100%; max-width: 260px; }
 
-/* Liquid livery: two blobs of paint that keep changing shape behind the driver card. */
-.liquid-blob { position: absolute; inset: -14% -18% 8% -12%; z-index: -1; pointer-events: none; filter: blur(2px); }
-.liquid-blob i {
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, var(--livery-1), var(--livery-2) 55%, var(--livery-3));
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-    opacity: 0.55;
-    animation: liquid-morph 11s ease-in-out infinite, liquid-spin 24s linear infinite;
-}
-.liquid-blob i + i {
-    inset: 12% -6% -4% 18%;
-    background: linear-gradient(315deg, var(--livery-3), var(--livery-2));
-    opacity: 0.4; mix-blend-mode: screen;
-    animation-duration: 14s, 30s; animation-direction: alternate, reverse;
-}
-[data-theme="light"] .liquid-blob i + i { mix-blend-mode: multiply; }
-@keyframes liquid-morph {
-    0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
-    25%      { border-radius: 70% 30% 46% 54% / 30% 60% 40% 70%; }
-    50%      { border-radius: 30% 70% 38% 62% / 62% 36% 64% 38%; }
-    75%      { border-radius: 56% 44% 62% 38% / 40% 68% 32% 60%; }
-}
-@keyframes liquid-spin { to { rotate: 360deg; } }
 .driver-card img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 0; }
 .driver-card figcaption { padding: 1rem 1.25rem 1.2rem; border-top: 3px solid var(--accent); }
 .driver-card strong { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1; }
@@ -366,6 +352,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
     margin: clamp(3rem, 7vw, 4.5rem) 0 1.25rem;
 }
 
+/* Experience: one row per role, lined up with the certification seasons below
+   (same left column), dates on the right. */
+.exp-list { list-style: none; border-bottom: 1px solid var(--line); }
+.exp-row {
+    display: grid; grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) auto;
+    gap: 0.5rem clamp(1.5rem, 4vw, 3.5rem); align-items: baseline;
+    padding: 1.25rem 0; border-top: 1px solid var(--line);
+}
+.exp-org { font: 800 italic 1.35rem/1.1 var(--font-display); text-transform: uppercase; }
+.exp-role { margin-top: 0.2rem; font-size: 0.95rem; color: var(--muted); }
+.exp-detail { max-width: 62ch; }
+.exp-dates { font: 600 1rem var(--font-display); letter-spacing: 0.04em; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
 /* Certifications as championship seasons (CertSeasons.jsx).
    By default every season is listed in order. The pinned, scroll-driven version
    is switched on further down, only on screens with room for it. */
@@ -375,12 +374,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .seasons-total, .seasons-track { display: none; }
 
 .season { display: grid; grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); gap: 1rem clamp(1.5rem, 4vw, 3.5rem); align-items: start; padding: 1.5rem 0; border-top: 1px solid var(--line); }
-.season-kicker { font: 600 0.95rem var(--font-display); text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
 .season-year {
     font: 800 italic clamp(3.5rem, 8vw, 5.5rem) / 0.9 var(--font-display); letter-spacing: -0.02em;
-    background: linear-gradient(100deg, var(--livery-2), var(--livery-1));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    padding-right: 0.1em; width: max-content;
+    color: var(--livery-2);
 }
 .season-count { margin-top: 0.5rem; color: var(--muted); }
 .season-count b { font: 800 italic 1.6rem var(--font-display); color: var(--text); margin-right: 0.2rem; }
@@ -418,7 +414,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
     .js .season-year { font-size: clamp(5rem, 11vw, 9.5rem); }
 
     /* Everything in the active season replays its entrance each time it becomes active. */
-    .js .season.is-active .season-kicker { animation: fade-up 0.45s var(--ease-out) both; }
     .js .season.is-active .season-year { animation: year-in 0.7s var(--ease-out) both; }
     .js .season.is-active .season-count { animation: fade-up 0.45s var(--ease-out) 0.15s both; }
     .js .season.is-active .season-orgs li { animation: fade-up 0.4s var(--ease-out) both; }
@@ -469,39 +464,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .seasons-node.is-active span { animation: fade-up 0.35s var(--ease-out); }
 
 
-.tech-stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 0.75rem; }
-.tech-item {
-    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-    padding: 1.1rem 0.5rem;
-    background: var(--card);
-    border-bottom: 2px solid transparent;
-    transition: transform 0.2s var(--ease-out), border-color 0.2s ease;
-}
-.tech-item img { width: 40px; height: 40px; object-fit: contain; filter: var(--tech-icon-filter); transition: filter 0.2s ease; }
-.tech-item span { font-size: 0.9rem; color: var(--muted); text-align: center; }
-.tech-item:hover { transform: translateY(-4px); border-color: var(--accent-ink); }
-.tech-item:hover img { filter: none; }
-[data-theme="dark"] .tech-item:hover img.is-mono { filter: invert(1); }   /* black logos (GitHub, Express) */
-.tech-item:hover span { color: var(--text); }
 
-/* Tyre compounds on the tech tiles: Pirelli colours, soft first. */
-.skills-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.5rem; margin: clamp(3rem, 7vw, 4.5rem) 0 1.25rem; }
-.skills-head .skills-title { margin: 0; }
-.tyre-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
-.tyre-legend li { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--muted); }
-.tyre-legend b { font: 800 italic 0.95rem var(--font-display); text-transform: uppercase; color: var(--text); }
-.tyre { width: 22px; height: 22px; flex: none; }
-.tyre text { font: 800 italic 10px var(--font-display); fill: var(--tyre); }
-.tyre-ring { stroke: var(--tyre); }
-.tyre-soft { --tyre: #ff3b3b; }
-.tyre-medium { --tyre: #ffd43b; }
-.tyre-hard { --tyre: #f2f3f5; }
-.tech-item { position: relative; }
-.tech-tyre { position: absolute; top: 0.4rem; right: 0.4rem; width: 18px; height: 18px; transition: transform 0.6s var(--ease-out); }
-.tech-item:hover .tech-tyre { transform: rotate(360deg); }
 
 /* ---------- 7. PROJECTS ---------- */
 .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); }
+/* Home page: on wide screens the project wheel (ProjectWheel.jsx) takes the cards' place;
+   phones, where the wheel is hidden, keep the featured cards. */
+@media (min-width: 901px) {
+    .wheel + .projects-grid.is-featured { display: none; }
+}
 .project-card {
     display: flex; flex-direction: column;
     background: var(--card);
@@ -577,8 +548,24 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .project-detail-text { max-width: 68ch; color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; }
 .project-detail-side { background: var(--card); padding: 1.5rem 1.6rem 1.75rem; border-top: 3px solid var(--accent); }
 .project-detail-side .project-tech { margin-bottom: 1.75rem; }
-.project-detail-actions { display: flex; flex-direction: column; gap: 0.75rem; padding-left: 0.5rem; }
-.project-detail-actions .btn { justify-content: center; }
+.project-detail-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; padding-left: 0.5rem; }
+.project-download-note { margin-top: 0.6rem; padding-left: 0.5rem; font-size: 0.9rem; color: var(--muted); }
+
+/* The lead screenshot: the page's real proportions, not a cropped banner. */
+.project-detail-image.project-detail-shot { aspect-ratio: auto; background: var(--card); }
+.project-detail-shot img { display: block; width: 100%; height: auto; }
+
+/* Screens: desktop captures two across, phone captures in a row of phone-shaped frames.
+   Each shows the top of the page and opens the full-length capture. */
+.project-screens { margin-top: clamp(3rem, 7vw, 5rem); }
+.screens-desktop, .screens-phone { list-style: none; display: grid; gap: 2rem 1.5rem; }
+.screens-desktop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.screens-phone { grid-template-columns: repeat(auto-fill, minmax(150px, 210px)); margin-top: 2.5rem; }
+.screen { display: block; overflow: hidden; background: var(--card); border: 1px solid var(--line); transition: border-color 0.2s ease; }
+.screen:hover { border-color: var(--accent-ink); }
+.screen img { display: block; width: 100%; height: auto; }
+.screens-phone .screen { border-radius: 20px; }
+.screen-label { display: block; margin-top: 0.6rem; font-size: 0.92rem; color: var(--muted); }
 .btn-icon { display: inline-flex; align-items: center; gap: 0.5rem; }
 .btn-icon svg { width: 18px; height: 18px; }
 
@@ -623,6 +610,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .contact-detail a:hover { color: var(--accent-ink); }
 
 .social-links { display: flex; gap: 0.75rem; }
+/* Contact details beside the globe (ContactGlobe.jsx), which sways around San Fernando. */
+.contact-reach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(1rem, 3vw, 2rem); align-items: center; }
+.contact-globe { display: block; width: 100%; max-width: 300px; aspect-ratio: 1; justify-self: center; cursor: grab; touch-action: pan-y; }
+.contact-globe:active { cursor: grabbing; }
+@media (max-width: 640px) {
+    .contact-reach { grid-template-columns: minmax(0, 1fr); }
+    .contact-globe { max-width: 260px; }
+}
 .social-link { width: 46px; height: 46px; display: grid; place-items: center; background: var(--card); color: var(--muted); transition: transform 0.2s var(--ease-out), background-color 0.2s ease, color 0.2s ease; }
 .social-link:hover { background: var(--accent); color: var(--on-accent); transform: translateY(-4px); }
 
@@ -644,6 +639,43 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .form-message.success { display: block; color: var(--ok); }
 .form-message.error { display: block; color: var(--bad); }
 
+/* Project wheel (ProjectWheel.jsx), top of /projects: the screenshot on the left, the
+   names turning on a wheel on the right. Wide screens only; phones get the grid below. */
+.wheel { display: none; }
+@media (min-width: 901px) {
+    .wheel {
+        display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        gap: clamp(2rem, 4vw, 3.5rem); align-items: center; margin-bottom: clamp(3rem, 6vw, 4.5rem);
+    }
+}
+.wheel-frame {
+    position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--card); border: 1px solid var(--line);
+    clip-path: polygon(0 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%);
+}
+.wheel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s ease; }
+.wheel-slide.is-active { opacity: 1; }
+.wheel-slide img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.wheel-placeholder { position: absolute; inset: 0; aspect-ratio: auto; }
+.wheel-caption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.1rem; }
+.wheel-stage { position: relative; height: clamp(360px, 34vw, 440px); cursor: grab; touch-action: none; user-select: none; }
+.wheel-stage:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 4px; }
+.wheel-track {
+    position: absolute; inset: 0; overflow: hidden; perspective: 900px; perspective-origin: 30% 50%;
+    mask-image: linear-gradient(to bottom, transparent, #000 28%, #000 72%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 28%, #000 72%, transparent);
+}
+.wheel-item {
+    position: absolute; top: 50%; left: 12%; transform-origin: center center; white-space: nowrap; cursor: pointer;
+    backface-visibility: hidden;
+    font: 800 italic clamp(1.4rem, 2.1vw, 1.95rem) / 1 var(--font-display); text-transform: uppercase;
+    color: var(--muted); transition: color 0.2s ease;
+}
+.wheel-item:hover, .wheel-item.is-selected { color: var(--text); }
+.wheel-marker {                             /* a slanted livery tab pointing at the selected name */
+    position: absolute; top: 50%; left: calc(12% - 30px); width: 16px; height: 10px;
+    background: var(--accent); transform: translateY(-50%) skewX(-20deg);
+}
+
 /* ---------- 9. RESUME + FOOTER ---------- */
 .resume-text { max-width: 62ch; color: var(--muted); margin-bottom: 2rem; }
 .preview-card { max-width: 780px; background: var(--card); padding: clamp(1.5rem, 4vw, 2.5rem); clip-path: polygon(0 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%); }
@@ -659,15 +691,38 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .download-actions { padding-left: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.footer { padding: 3rem 0 2.5rem; text-align: center; }
-.footer::before {                          /* chequered flag: you finished the lap */
+/* Site footer (Footer.jsx): name, three link columns, then the lap timer under a hairline. */
+.site-footer { position: relative; z-index: 1; background: var(--bg-alt); padding: calc(24px + clamp(2.5rem, 5vw, 3.5rem)) 0 clamp(2rem, 4vw, 3rem); }
+.site-footer::before {                     /* chequered flag: you finished the lap */
     content: ''; position: absolute; inset: 0 0 auto 0; height: 24px;
     background: repeating-conic-gradient(var(--text) 0 25%, transparent 0 50%) 0 0 / 24px 24px;
     opacity: 0.9;
 }
-.footer-logo img { height: 64px; margin: 1.5rem auto 1rem; }
-.footer-text { color: var(--muted); }
-.footer-copyright { color: var(--muted); font-size: 0.9rem; opacity: 0.8; }
+.footer-top, .footer-rule { width: min(calc(100% - 2 * var(--gutter)), calc(var(--wrap) - 2 * var(--gutter))); margin-inline: auto; }
+.footer-top {
+    display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 1.5rem;
+    font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.75;
+}
+.footer-brand strong { display: block; margin-bottom: 0.3rem; font: 800 italic 1.7rem/1.1 var(--font-display); letter-spacing: 0.01em; }
+.footer-brand span { color: var(--muted); }
+.footer-col h3 { margin-bottom: 0.35rem; font: inherit; color: var(--muted); }
+.footer-col ul { list-style: none; }
+.footer-col a {
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0% 1px;
+    transition: background-size 0.35s var(--ease-out), color 0.2s ease;
+}
+.footer-col a:hover { color: var(--accent-ink); background-size: 100% 1px; }
+.footer-rule {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+    margin-top: clamp(1.5rem, 3vw, 2.25rem); padding-top: 1rem; border-top: 1px solid var(--line);
+    font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.footer-rule .lap-timer { margin: 0; }
+.footer-copy { color: var(--muted); }
+@media (max-width: 720px) {
+    .footer-top { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.25rem; }
+    .footer-brand { grid-column: 1 / -1; }
+}
 
 .back-to-top {
     position: fixed; right: var(--gutter); bottom: calc(var(--lap-h) + 1rem); z-index: 80;
@@ -713,8 +768,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 
 .lap-flag { flex: none; width: 42px; background: repeating-conic-gradient(var(--text) 0 25%, transparent 0 50%) 0 0 / 14px 14px; }
 
-.streaks { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-
 /* Reveal: only hidden when JavaScript is running, so the page still reads without it. */
 .js [data-scroll-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.6s var(--ease-out); }
 .js [data-scroll-reveal="fade-left"] { transform: translateX(-24px); }
@@ -747,15 +800,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 @keyframes title-in { from { opacity: 0; transform: translateX(-12vw) skewX(-20deg); } to { opacity: 1; transform: none; } }
 @keyframes fade-up { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: none; } }
 
-/* Second line of the name in outline, filling with livery colour on hover. */
-.hero-title span + span {
-    color: transparent;
-    -webkit-text-stroke: max(1.5px, 0.012em) var(--text);
-    background: linear-gradient(100deg, var(--livery-2), var(--livery-1)) no-repeat 0 0 / 0% 100%;
-    -webkit-background-clip: text; background-clip: text;
-    transition: background-size 0.7s var(--ease-out), -webkit-text-stroke-color 0.4s ease;
-}
-.hero-title:hover span + span { background-size: 100% 100%; -webkit-text-stroke-color: transparent; }
+/* Halftone type (HalftoneText.jsx): the real text sets the size and stays selectable, but is
+   invisible; the dots are drawn on a canvas laid over it. Second line of the hero name. */
+.halftone-text { position: relative; color: transparent; }
+.halftone-text canvas { position: absolute; pointer-events: none; }
 
 /* Nav slides down on load; links underline on hover too. */
 .js .nav { animation: nav-in 0.6s var(--ease-out) backwards; }   /* backwards, not both: nothing may stay on .nav afterwards (see .nav::before) */
@@ -797,8 +845,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 
 
 /* Tech tiles: the logo kicks up a little. */
-.tech-item img { transition: filter 0.2s ease, transform 0.35s var(--ease-out); }
-.tech-item:hover img { transform: scale(1.15) rotate(-6deg); }
 
 /* Project cards: race number, lift, glint across the image, stripe along the bottom. */
 .js .project-card[data-scroll-reveal] { transition: opacity 0.5s ease, transform 0.6s var(--ease-out), translate 0.3s var(--ease-out); }
@@ -819,7 +865,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
     pointer-events: none;
 }
 .project-card:hover .project-number { color: rgba(255, 255, 255, 0.9); transform: translateX(-6px) skewX(-8deg); }
-.project-image:has(.project-shot) .project-number { text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4); }
 
 .project-placeholder { transition: transform 0.45s var(--ease-out); }
 .project-card:hover .project-placeholder { transform: translateX(8px); }
@@ -856,57 +901,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .back-to-top:hover svg { animation: nudge-up 0.6s var(--ease-out); }
 @keyframes nudge-up { 40% { transform: translateY(-4px); } }
 
-/* Footer: the chequered flag rolls slowly, and the logo has a little bounce. */
-.footer::before { animation: flag-roll 8s linear infinite; }
+/* Footer: the chequered flag rolls slowly. */
+.site-footer::before { animation: flag-roll 8s linear infinite; }
 @keyframes flag-roll { to { background-position: 48px 0; } }
-.footer-logo img { transition: transform 0.4s var(--ease-out); }
-.footer-logo:hover img { transform: translateY(-4px) rotate(-4deg); }
 
 /* ---------- 12. BROADCAST PIECES ---------- */
 
-/* Ticker under the hero: a slanted band of the tech stack, like a race broadcast. */
-.ticker-clip { position: relative; z-index: 2; overflow-x: clip; overflow-y: visible; }
-.ticker {
-    position: relative; z-index: 2;
-    display: flex; align-items: stretch;
-    width: 104%; margin: 0 -2%;
-    background: var(--accent); color: var(--on-accent);
-    transform: rotate(-1.2deg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-}
-.ticker-label {
-    flex: none; display: flex; align-items: center; gap: 0.5rem;
-    padding: 0 1.25rem 0 calc(2% + var(--gutter));
-    background: #0a0b0e; color: #fff;
-    font: 800 italic 1.1rem var(--font-display); text-transform: uppercase; letter-spacing: 0.06em;
-}
-.ticker-label::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: #ff2a2a; animation: live-dot 1.4s ease-in-out infinite; }
-@keyframes live-dot { 50% { opacity: 0.25; box-shadow: 0 0 0 0 transparent; } 0%, 100% { box-shadow: 0 0 10px #ff2a2a; } }
-.ticker-window { flex: 1; min-width: 0; overflow: hidden; }
-.ticker-track { display: flex; width: max-content; animation: ticker 45s linear infinite; }
-.ticker:hover .ticker-track { animation-play-state: paused; }
-.ticker-list { display: flex; flex: none; }
-.ticker-list li {
-    padding: 0.7rem 0;
-    font: 800 italic 1.35rem var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap;
-}
-.ticker-list li::after { content: '/'; margin: 0 1.1rem; opacity: 0.45; }
-@keyframes ticker { to { transform: translateX(-50%); } }
 
-/* Hero role line: each role rolls up into place. */
-.role-cycler { display: inline-block; overflow: hidden; vertical-align: bottom; }
-.role-word { display: inline-block; color: var(--text); font-weight: 600; animation: role-in 0.5s var(--ease-out) both; }
-@keyframes role-in { from { opacity: 0; transform: translateY(100%) skewX(-12deg); } to { opacity: 1; transform: none; } }
-
-/* Hero backdrop: two slow-drifting glows in the livery colours. */
-.hero::before {
-    content: ''; position: absolute; inset: -20%; z-index: -1; pointer-events: none;
-    background:
-        radial-gradient(40% 35% at 75% 30%, color-mix(in srgb, var(--livery-2) 28%, transparent), transparent 70%),
-        radial-gradient(35% 30% at 20% 70%, color-mix(in srgb, var(--livery-3) 45%, transparent), transparent 70%);
-    animation: glow-drift 18s ease-in-out infinite alternate;
-}
-@keyframes glow-drift { to { transform: translate(-4%, 3%) scale(1.08); } }
 
 /* Film grain over everything, for a bit of print texture. */
 body::after {
@@ -925,17 +926,6 @@ body::after {
 .js .section-header .section-kicker { opacity: 0; transform: translateX(12px); transition: opacity 0.4s ease 0.7s, transform 0.5s var(--ease-out) 0.7s; }
 .js .section-header.is-in .section-kicker { opacity: 1; transform: none; }
 
-/* Tilt + spotlight on anything with data-tilt (see PointerFX.jsx). */
-.js [data-tilt][data-scroll-reveal].is-in { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
-.js .project-card[data-scroll-reveal].is-in.is-tilting { transition: opacity 0.5s ease, transform 0.12s linear, translate 0.3s var(--ease-out); }
-.js .driver-card[data-scroll-reveal].is-in.is-tilting { transition: opacity 0.5s ease, transform 0.12s linear; }
-.driver-card { position: relative; }
-.project-card::before, .driver-card::before {
-    content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
-    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.09), transparent 45%);
-    opacity: 0; transition: opacity 0.3s ease;
-}
-.is-tilting::before { opacity: 1; }
 
 /* Where the browser supports scroll-driven animation, card art drifts as it passes. */
 @supports (animation-timeline: view()) {
@@ -1008,18 +998,6 @@ body::after {
     transition: transform 0.2s var(--ease-out), translate 0.35s var(--ease-out), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Page change: three livery stripes sweep across the screen. */
-.route-wipe { position: fixed; inset: 0; z-index: 150; pointer-events: none; overflow: hidden; }
-.route-wipe i {
-    position: absolute; top: 0; bottom: 0; left: 0; width: 70vw;
-    /* Travel in screen widths, not the stripe's own width, so every stripe fully leaves the screen. */
-    transform: translateX(calc(-100% - 30vh)) skewX(-18deg);
-    animation: wipe 0.75s var(--ease-out) both;
-}
-.route-wipe i:nth-child(1) { background: var(--livery-3); }
-.route-wipe i:nth-child(2) { background: var(--livery-2); animation-delay: 0.06s; width: 40vw; }
-.route-wipe i:nth-child(3) { background: var(--livery-1); animation-delay: 0.12s; width: 14vw; }
-@keyframes wipe { from { transform: translateX(calc(-100% - 30vh)) skewX(-18deg); } to { transform: translateX(calc(100vw + 30vh)) skewX(-18deg); } }
 
 /* Project card -> project page (ProjectMorph.jsx): the card image grows into the page's big image. */
 .is-morphing .project-detail-image[data-scroll-reveal] { opacity: 1; transform: none; transition: none; }   /* already there when it lands */
@@ -1047,20 +1025,6 @@ html.is-morphing::view-transition-old(root), html.is-morphing::view-transition-n
 .form-message.success { animation: fade-up 0.5s var(--ease-out); }
 .form-message.error { animation: shake 0.4s ease; }
 @keyframes shake { 20%, 60% { translate: -6px 0; } 40%, 80% { translate: 6px 0; } }
-
-/* Tap sparks (TouchFX.jsx): little streaks fly off the finger and burn out. */
-.spark-burst { position: fixed; z-index: 210; width: 0; height: 0; pointer-events: none; }
-.spark-burst i {
-    position: absolute; left: 0; top: -1px; width: 12px; height: 2px; border-radius: 2px;
-    background: linear-gradient(90deg, transparent, var(--livery-1), #fff7d6);
-    transform-origin: 0 50%; opacity: 0;
-    animation: spark 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
-}
-@keyframes spark {
-    0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scaleX(0.4); }
-    60% { opacity: 1; }
-    100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--d)) scaleX(1) translateY(6px); }
-}
 
 /* Team radio: after the flag, an F1 TV radio caption plays over the bottom of the form. */
 .team-radio {
@@ -1113,21 +1077,52 @@ html.is-morphing::view-transition-old(root), html.is-morphing::view-transition-n
 .theme-toggle svg { transition: transform 0.5s var(--ease-out); }
 .theme-toggle:active svg { transform: rotate(90deg) scale(0.8); }
 
-/* Tech stack, grouped: a label on the left, that group's tiles on the right. */
-.tech-groups { display: flex; flex-direction: column; gap: 1rem; }
-.tech-group { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 1rem; align-items: start; }
-.tech-group-name {
-    position: sticky; top: calc(var(--nav-h) + 1rem);
-    display: flex; align-items: center; min-height: 5.6rem; padding: 0 1rem;
-    background: var(--card); border-left: 3px solid var(--accent);
-    font-size: 1.15rem; font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.1;
+/* Tech stack (About.jsx + TechCloud.jsx): the logo cloud beside the readable list by group. */
+.tech-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.tech-cloud-wrap { display: grid; justify-items: center; }
+.tech-cloud { position: relative; width: min(100%, 440px); aspect-ratio: 1; touch-action: pan-y; }
+.tech-cloud-icon {
+    position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px;
+    display: grid; place-items: center; will-change: transform, opacity;
 }
-.tech-group:nth-child(2) .tech-group-name { border-left-color: var(--livery-1); }
-.tech-group:nth-child(3) .tech-group-name { border-left-color: var(--livery-3); }
-.tech-group:nth-child(4) .tech-group-name { border-left-color: var(--muted); }
-/* Tiles cascade within their group, groups one after another. */
-.js [data-scroll-reveal]:not(.is-in) .tech-group .tech-item { opacity: 0; }
-.js .is-in .tech-group .tech-item { animation: grid-in 0.5s var(--ease-out) both; animation-delay: calc(0.25s + var(--i, 0) * 0.12s + var(--t, 0) * 0.04s); }
+.tech-cloud-icon img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.2s var(--ease-out); }
+.tech-cloud-icon:hover img { transform: scale(1.25); }
+[data-theme="dark"] .tech-cloud-icon img.is-mono { filter: invert(1); }   /* black logos (GitHub, Express, Expo) */
+.tech-cloud-caption {
+    min-height: 1.5em; margin-top: 0.25rem;
+    font: 800 italic 1.15rem var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent-ink);
+}
+.tech-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 2rem; }
+.tech-list-title { --mark: var(--accent); margin-bottom: 0.7rem; font: 800 italic 1.1rem var(--font-display); text-transform: uppercase; }
+/* A short underline in the group's colour. */
+.tech-list-title span { position: relative; display: inline-block; padding-bottom: 0.35rem; }
+.tech-list-title span::after { content: ''; position: absolute; left: 0; bottom: 0; width: 1.6rem; height: 3px; background: var(--mark); }
+.tech-list-group:nth-child(2) .tech-list-title { --mark: var(--livery-1); }
+.tech-list-group:nth-child(3) .tech-list-title { --mark: var(--livery-3); }
+.tech-list-group:nth-child(4) .tech-list-title { --mark: var(--muted); }
+.tech-list ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem 0.9rem; }
+.tech-list li { font-size: 0.95rem; color: var(--muted); }
+.skills-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; margin: clamp(3rem, 7vw, 4.5rem) 0 1.5rem; }
+.skills-head .skills-title { margin: 0; }
+.tech-views { margin: 0; }
+/* Grid view: logo tiles by group. */
+.tech-grid { display: grid; gap: 1.75rem; }
+.tech-tiles { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 0.75rem; }
+.tech-tile {
+    display: flex; flex-direction: column; align-items: center; gap: 0.55rem; padding: 1rem 0.5rem;
+    background: var(--card); border-bottom: 2px solid transparent; text-align: center;
+    transition: transform 0.2s var(--ease-out), border-color 0.2s ease;
+}
+.tech-tile img { width: 36px; height: 36px; object-fit: contain; }
+.tech-tile span { font-size: 0.88rem; color: var(--muted); }
+.tech-tile:hover { transform: translateY(-3px); border-color: var(--accent-ink); }
+.tech-tile:hover span { color: var(--text); }
+[data-theme="dark"] .tech-tile img.is-mono { filter: invert(1); }
+@media (max-width: 900px) {
+    .tech-layout { grid-template-columns: minmax(0, 1fr); }
+    .tech-tiles { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 0.5rem; }
+    .tech-cloud { width: min(100%, 340px); }
+}
 
 /* Resume: a sketch of the page beside the details; the sheets fan out on hover. */
 .resume-preview { display: flex; align-items: center; gap: clamp(2rem, 5vw, 4rem); }
@@ -1162,109 +1157,25 @@ html.is-morphing::view-transition-old(root), html.is-morphing::view-transition-n
 /* Project page: "More like this". */
 .project-related { margin-top: clamp(3rem, 7vw, 5rem); }
 
-/* ---------- 15. LOADING SCREEN (Loader.jsx) ----------
-   Shown only while <html> has "is-loading" (set before paint by layout.jsx). */
-.loader { display: none; }
-.is-loading .loader { display: block; position: fixed; inset: 0; z-index: 400; }
-.is-loading body { overflow: hidden; }
 
-/* Hold the page's own entrance animations until the loading screen has gone. */
-.is-loading .hero-title span, .is-loading .hero-role, .is-loading .hero-row, .is-loading .stats-grid,
-.is-loading .nav, .is-loading .not-found-title, .is-loading .project-detail-image .project-placeholder,
-.is-loading .project-detail-image .project-number { animation-play-state: paused; }
+/* ---------- 16. HERO BUILD + SEASON FILL ---------- */
 
-.loader-panel {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(1rem, 3vh, 2rem);
-    padding: var(--gutter);
-    background:
-        radial-gradient(50% 40% at 50% 45%, color-mix(in srgb, var(--livery-3) 35%, transparent), transparent 70%),
-        var(--bg);
-}
-.loader-logo { animation: fade-up 0.6s var(--ease-out) both; }
-.loader-logo img { height: 56px; width: auto; }
-[data-theme="light"] .loader-logo .logo-dark { display: none; }
-[data-theme="light"] .loader-logo .logo-light { display: block; }
-
-.loader-count { display: flex; align-items: baseline; gap: 0.3rem; font-family: var(--font-display); line-height: 0.85; }
-.loader-count b {
-    font-size: clamp(5.5rem, 18vw, 12rem); font-weight: 800; font-style: italic; letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-    background: linear-gradient(100deg, var(--text) 40%, var(--livery-1));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    padding-right: 0.06em;
-}
-.loader-count span { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; font-style: italic; color: var(--accent-ink); }
-
-.loader-track { position: relative; width: min(560px, 82vw); height: 46px; margin-right: 34px; }
-.loader-rail { position: absolute; left: 0; right: 0; bottom: 6px; height: 3px; background: var(--line); }
-.loader-fill { height: 100%; background: linear-gradient(90deg, var(--livery-3), var(--livery-2), var(--livery-1)); transform: scaleX(0); transform-origin: left; }
-.loader-car { position: absolute; left: 0; bottom: 4px; width: 92px; margin-left: -92px; }
-.loader-car .car { display: block; width: 100%; height: auto; overflow: visible; }
-.loader-car .car-num { display: none; }
-.loader-car .car-wheel { animation: wheel-turn 0.35s linear infinite; }
-@keyframes wheel-turn { to { transform: rotate(360deg); } }
-.loader-flag {
-    position: absolute; right: -34px; bottom: 6px; width: 26px; height: 34px;
-    background: repeating-conic-gradient(var(--text) 0 25%, transparent 0 50%) 0 0 / 13px 13px;
-    animation: flag-wave 0.9s ease-in-out infinite alternate; transform-origin: left bottom;
-}
-@keyframes flag-wave { to { transform: skewY(-8deg) scaleX(0.92); } }
-
-.loader-status { font: 600 1rem var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
-.loader-status i { font-style: normal; animation: dots 1s steps(1) infinite; }
-@keyframes dots { 50% { opacity: 0.2; } }
-
-/* Exit: the panel lifts away, and three livery stripes sweep up behind it. */
-.loader-stripes { position: absolute; inset: 0; pointer-events: none; }
-.loader-stripes i { position: absolute; left: -10%; right: -10%; top: 0; height: 100%; transform: translateY(105%); }
-.loader-stripes i:nth-child(1) { background: var(--livery-1); }
-.loader-stripes i:nth-child(2) { background: var(--livery-2); }
-.loader-stripes i:nth-child(3) { background: var(--livery-3); }
-.is-leaving .loader-panel { animation: loader-lift 0.65s cubic-bezier(0.7, 0, 0.3, 1) both; }
-.is-leaving .loader-stripes i { animation: stripe-sweep 0.9s cubic-bezier(0.7, 0, 0.3, 1) both; }
-.is-leaving .loader-stripes i:nth-child(2) { animation-delay: 0.06s; }
-.is-leaving .loader-stripes i:nth-child(3) { animation-delay: 0.12s; }
-.is-leaving .loader-panel > * { animation: loader-out 0.3s ease both; }
-@keyframes loader-lift { to { transform: translateY(-100%) skewY(-4deg); } }
-@keyframes loader-out { to { opacity: 0; translate: 0 -24px; } }
-@keyframes stripe-sweep { 0% { transform: translateY(105%) skewY(-6deg); } 45% { transform: translateY(0) skewY(-6deg); } 100% { transform: translateY(-110%) skewY(-6deg); } }
-
-/* ---------- 16. TELEMETRY + SEASON FILL ---------- */
-
-/* Hero head: the name on the left, the telemetry panel on the right (wide screens only). */
+/* Hero head: the name, then the latest build (HeroBuild.jsx). Beside the name on wide screens. */
 .hero-head { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 2rem; }
-.telemetry { display: none; }
-@media (min-width: 1180px) {
-    .hero-head { grid-template-columns: minmax(0, 1fr) 300px; }
-    .telemetry { display: block; }
-}
-.telemetry {
-    position: relative; overflow: hidden;
-    padding: 1rem 1.2rem 0.6rem;
-    background: color-mix(in srgb, var(--card) 80%, transparent);
-    border: 1px solid var(--line); border-top: 3px solid var(--accent);
-    backdrop-filter: blur(6px);
+@media (min-width: 1180px) { .hero-head { grid-template-columns: minmax(0, 1fr) 340px; } }
+.hero-build { display: grid; gap: 0.55rem; max-width: 420px; }
+.hero-build-label { font: 600 0.82rem var(--font-display); text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+.hero-build-shot {
+    display: block; aspect-ratio: 16 / 10; background: var(--card); border: 1px solid var(--line);
     clip-path: polygon(0 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%);
 }
-.telemetry::after {                         /* a scan line passing down the panel */
-    content: ''; position: absolute; left: 0; right: 0; top: -30%; height: 30%;
-    background: linear-gradient(transparent, color-mix(in srgb, var(--accent-ink) 10%, transparent), transparent);
-    animation: scan-down 4.5s linear infinite; pointer-events: none;
-}
-@keyframes scan-down { to { transform: translateY(440%); } }
-.telemetry-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.7rem; font: 600 0.85rem var(--font-display); text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
-.telemetry-live { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--text); }
-.telemetry-live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); animation: live-dot 1.6s ease-in-out infinite; }
-.telemetry-rows div { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: 0.6rem; padding: 0.42rem 0; border-top: 1px solid var(--line); }
-.telemetry-rows dt { font: 600 0.8rem var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-ink); padding-top: 0.1rem; }
-.telemetry-rows dd { font-size: 0.92rem; line-height: 1.35; }
-.js .telemetry { animation: fade-up 0.7s var(--ease-out) 0.35s both; }
-.js .telemetry-rows div { animation: grid-in 0.5s var(--ease-out) both; animation-delay: calc(0.6s + var(--r) * 0.09s); }
-.telemetry-trace { display: block; width: 100%; height: 42px; margin-top: 0.4rem; }
-.telemetry-trace path { fill: none; stroke: var(--accent-ink); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 600; stroke-dashoffset: 600; animation: trace 2.4s var(--ease-out) 1.1s forwards; }
-@keyframes trace { to { stroke-dashoffset: 0; } }
-.is-loading .telemetry, .is-loading .telemetry-rows div, .is-loading .telemetry-trace path { animation-play-state: paused; }
+.hero-build-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s var(--ease-out); }
+.hero-build:hover .hero-build-shot img { transform: scale(1.04); }
+.hero-build-title { font: 800 italic 1.35rem/1.1 var(--font-display); text-transform: uppercase; color: var(--text); }
+.hero-build-title i { display: inline-block; font-style: normal; color: var(--accent-ink); transition: transform 0.25s var(--ease-out); }
+.hero-build:hover .hero-build-title i { transform: translateX(4px); }
+.hero-build-line { font-size: 0.95rem; color: var(--muted); }
+.js .hero-build { animation: fade-up 0.7s var(--ease-out) 0.35s both; }
 
 /* Seasons: a giant outlined year fills the empty side of the stage. Pinned mode only. */
 .season { position: relative; }
@@ -1286,23 +1197,13 @@ html.is-morphing::view-transition-old(root), html.is-morphing::view-transition-n
 /* 404: the big title skids in. */
 .not-found-title { animation: title-in 0.9s var(--ease-out) both; }
 
-@keyframes menu-in { from { opacity: 0; translate: -30px 0; } to { opacity: 1; translate: none; } }
 
 /* Touch screens: a quick press-down so taps feel answered (hover effects don't exist there). */
 @media (hover: none) {
     .btn:active { transform: skewX(-10deg) scale(0.97); }
-    .project-card:active, .tech-item:active, .season-row:active, .social-link:active, .project-filter:active { scale: 0.98; }
+    .project-card:active, .season-row:active, .social-link:active, .project-filter:active { scale: 0.98; }
 }
 
-/* Phones and tablets: project cards drive in from the right as they scroll into view,
-   where the browser supports scroll-driven animation. */
-@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-        .project-card { animation: drive-in linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
-        .tech-group-name { animation: drive-in linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
-    }
-    @keyframes drive-in { from { opacity: 0; translate: 45% 0; } to { opacity: 1; translate: 0 0; } }
-}
 
 /* iPhones and other phones with a home bar: keep the lap bar clear of it. */
 .lap { height: calc(var(--lap-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); }
@@ -1311,20 +1212,37 @@ body { padding-bottom: calc(var(--lap-h) + env(safe-area-inset-bottom)); }
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
     .nav-toggle { display: grid; }
+    /* Full-screen menu: opens in a circle from the menu button, links rise in one by one. */
+    .nav-logo, .nav-container > .theme-toggle, .nav-toggle { position: relative; z-index: 2; }
     .nav-menu {
-        position: fixed; inset: var(--nav-h) 0 var(--lap-h) 0;
-        flex-direction: column; justify-content: center; gap: 1.75rem;
-        background: var(--bg);
-        opacity: 0; transform: translateY(-12px); visibility: hidden;
-        transition: opacity 0.25s ease, transform 0.35s var(--ease-out), visibility 0.35s;
+        --origin: calc(100% - var(--gutter) - 20px) calc(var(--nav-h) / 2);
+        position: fixed; inset: 0; z-index: 1;
+        flex-direction: column; align-items: stretch; justify-content: space-between; gap: 2rem;
+        padding: calc(var(--nav-h) + clamp(2rem, 8vh, 4rem)) var(--gutter) calc(var(--lap-h) + 1.5rem);
+        background: var(--bg); overflow-y: auto;
+        clip-path: circle(0 at var(--origin)); visibility: hidden;
+        transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s 0.6s;
     }
-    .nav-menu.active { opacity: 1; transform: none; visibility: visible; }
-    .nav-link { font-size: 1.8rem; }
-    .nav-menu.active li { animation: menu-in 0.45s var(--ease-out) both; }
-    .nav-menu.active li:nth-child(2) { animation-delay: 0.05s; }
-    .nav-menu.active li:nth-child(3) { animation-delay: 0.1s; }
-    .nav-menu.active li:nth-child(4) { animation-delay: 0.15s; }
-    .nav-menu.active li:nth-child(5) { animation-delay: 0.2s; }
+    .nav-menu.active { clip-path: circle(150% at var(--origin)); visibility: visible; transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1); }
+    .nav-links { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+    .nav-links li { overflow: hidden; padding-right: 0.3em; }
+    .nav-link {
+        display: inline-block; padding: 0.1rem 0;
+        font-size: clamp(2.6rem, 12vw, 4.2rem); font-weight: 800; font-style: italic; text-transform: uppercase; line-height: 1.05;
+        transform: translateY(110%); transition: transform 0.6s var(--ease-out), color 0.2s ease;
+    }
+    .nav-menu.active .nav-link { transform: none; transition-delay: calc(0.18s + var(--i, 0) * 0.06s), 0s; }
+    .nav-link::after { height: 3px; }
+    .nav-resume, .nav-resume:hover, .nav-resume.active { margin-top: 0.75rem; padding: 0.2rem 1.2rem; font-size: clamp(1.8rem, 8vw, 2.6rem); }
+    .nav-menu.active .nav-resume { transform: skewX(-10deg); }
+    .nav-menu-foot {
+        display: flex; flex-direction: column; gap: 0.35rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
+        font-size: 0.95rem; color: var(--muted);
+        opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.5s var(--ease-out);
+    }
+    .nav-menu.active .nav-menu-foot { opacity: 1; transform: none; transition-delay: 0.5s; }
+    .nav-menu-foot a { color: var(--text); }
+    .nav-menu-social { display: flex; gap: 1.25rem; }
 
     .about-top, .contact-grid, .projects-grid, .project-detail-body { grid-template-columns: minmax(0, 1fr); }
     .project-detail-image { aspect-ratio: 16 / 9; }
@@ -1333,10 +1251,18 @@ body { padding-bottom: calc(var(--lap-h) + env(safe-area-inset-bottom)); }
 }
 
 @media (max-width: 640px) {
+    /* Project screens: one desktop capture per row, phones two across. */
+    .screens-desktop { grid-template-columns: minmax(0, 1fr); }
+    .screens-phone { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* Experience: stacked, dates right under the role. */
+    .exp-row { grid-template-columns: minmax(0, 1fr); gap: 0.4rem; }
+    .exp-dates { order: -1; grid-row: 2; font-size: 0.9rem; }
+    .exp-who { grid-row: 1; }
+
     /* About: photo and name side by side, as a compact driver card. */
     .driver-card { display: grid; grid-template-columns: 112px minmax(0, 1fr); max-width: none; width: 100%; }
     .driver-wrap { max-width: none; }
-    .liquid-blob { inset: -14px auto -14px -14px; width: 150px; }   /* the compact card: a smaller pool behind the photo */
     .driver-card img { height: 100%; }
     .driver-card figcaption { display: flex; flex-direction: column; justify-content: center; border-top: 0; border-left: 3px solid var(--accent); padding: 0.75rem 1rem; }
     .driver-card strong { font-size: 1.35rem; }
@@ -1360,18 +1286,10 @@ body { padding-bottom: calc(var(--lap-h) + env(safe-area-inset-bottom)); }
     /* Section headings a touch smaller, so two-word titles stay on one line. */
     .section-title { font-size: clamp(2.1rem, 9.5vw, 3rem); }
     .section-header { gap: 1rem; }
-    .tech-stack-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 0.45rem; }
-    .tech-item { padding: 0.7rem 0.25rem; gap: 0.35rem; }
-    .tech-item img { width: 28px; height: 28px; }
-    .tech-tyre { width: 14px; height: 14px; top: 0.25rem; right: 0.25rem; }
-    .tech-item span { font-size: 0.75rem; }
-    .tech-group { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
-    .tech-group-name { position: static; min-height: 0; padding: 0.4rem 0.8rem; }
     .resume-paper { display: none; }
     .season { grid-template-columns: minmax(0, 1fr); }
     .season-list.is-long { grid-template-columns: minmax(0, 1fr); }
     .section-kicker { display: none; }
-    .ticker-list li { font-size: 1.1rem; padding: 0.55rem 0; }
     :root { --lap-h: 44px; --chamfer: 14px; }
     body { font-size: 1rem; }
     .lap-speed, .lap-mark span { display: none; }

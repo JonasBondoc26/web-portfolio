@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Reveal from '../Reveal';
 import SectionHeader from '../SectionHeader';
 import ProjectCard from '../ProjectCard';
+import ProjectWheel from '../ProjectWheel';
 import { projects } from '../../data/projects';
 
 export default function FeaturedProjects() {
@@ -10,9 +11,11 @@ export default function FeaturedProjects() {
     return (
         <section id="projects" className="projects page-section">
             <div className="container">
-                <SectionHeader title="Featured Projects" sector={2} />
+                <SectionHeader title="Projects" sector={2} />
 
-                <div className="projects-grid" data-speed-skew>
+                {/* Wide screens: every project on the wheel. Phones: the featured cards. */}
+                <ProjectWheel projects={projects} />
+                <div className="projects-grid is-featured">
                     {featured.map((project, i) => (
                         <ProjectCard key={project.slug} project={project} delay={0.1 * (i + 1)} />
                     ))}

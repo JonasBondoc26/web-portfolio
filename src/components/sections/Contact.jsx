@@ -1,6 +1,7 @@
 import Reveal from '../Reveal';
 import SectionHeader from '../SectionHeader';
 import ContactForm from '../ContactForm';
+import ContactGlobe from '../ContactGlobe';
 import { EMAIL } from '../../lib/site';
 
 const icon = { width: 24, height: 24, viewBox: '0 0 24 24', 'aria-hidden': true };
@@ -19,6 +20,9 @@ export default function Contact() {
                             I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a question or just want to say hi, feel free to reach out.
                         </p>
 
+                        {/* The ways to reach me, beside a globe turned to where I am. */}
+                        <div className="contact-reach">
+                        <div className="contact-reach-list">
                         <div className="contact-details stagger">
                             <div className="contact-item" style={{ '--i': 0 }}>
                                 <div className="contact-icon">
@@ -75,6 +79,9 @@ export default function Contact() {
                                     <path d="M12 0C5.373 0 0 4.836 0 10.8c0 3.396 1.728 6.426 4.428 8.406V24l4.104-2.268c1.092.3 2.256.468 3.468.468 6.627 0 12-4.836 12-10.8S18.627 0 12 0zm1.2 14.4l-3.06-3.264-5.34 3.264 5.88-6.228 3.12 3.264 5.28-3.264-5.88 6.228z" />
                                 </svg>
                             </a>
+                        </div>
+                        </div>
+                        <ContactGlobe />
                         </div>
                     </Reveal>
 

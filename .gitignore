@@ -4,3 +4,13 @@ out
 .env*.local
 .DS_Store
 .next-build
+
+# Local Claude Code tools (Impeccable skill, hooks); not part of the site
+.claude/
+
+# Raw screenshots: 62 MB of source captures. The site ships the optimized copies in
+# public/shots/ (made by `npm run shots`); delete this line to back the originals up in git.
+public/photos/
+
+# Local design-tool output (Impeccable critiques and cache)
+.impeccable/

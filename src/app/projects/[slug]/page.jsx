@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Reveal from '../../../components/Reveal';
 import LapBar from '../../../components/LapBar';
-import ProjectCard, { DemoIcon, GitHubIcon } from '../../../components/ProjectCard';
+import ProjectCard, { LinkIcon } from '../../../components/ProjectCard';
+import { projectLinks, linkProps } from '../../../lib/projectLinks';
 import SectionHeader from '../../../components/SectionHeader';
 import { projects } from '../../../data/projects';
+import shots from '../../../data/shots.json';
 import { BASE } from '../../../lib/site';
 
 // The site is a static export, so every project page is built ahead of time.
@@ -32,12 +34,29 @@ const Arrow = ({ back = false }) => (
     </svg>
 );
 
+/** One screenshot: the top of the page, linking to the full-length capture. */
+const Screen = ({ shot }) => (
+    <li>
+        <a className="screen" href={`${BASE}${shot.full}`} target="_blank" rel="noopener" aria-label={`${shot.label}, full page (opens in a new tab)`}>
+            <img src={`${BASE}${shot.view}`} alt="" loading="lazy" width={shot.w} height={shot.h} />
+        </a>
+        <span className="screen-label">{shot.label}</span>
+    </li>
+);
+
 export default async function ProjectPage({ params }) {
     const { slug } = await params;
     const index = projects.findIndex((p) => p.slug === slug);
     if (index === -1) notFound();
 
-    const { title, placeholder, category, description, features, tech, demo, github, image } = projects[index];
+    const project = projects[index];
+    const { slug: id, title, category, description, features, tech } = project;
+    const links = projectLinks(project);
+    const download = typeof project.download === 'string' ? { url: project.download } : project.download;
+    const cover = shots[id]?.cover;
+    const screens = (shots[id]?.screens ?? []).filter((s) => !s.isCover);
+    const desktopScreens = screens.filter((s) => !s.phone);
+    const phoneScreens = screens.filter((s) => s.phone);
     const prev = projects[(index - 1 + projects.length) % projects.length];
     const next = projects[(index + 1) % projects.length];
     // Up to two others from the same category, for the "More like this" row.
@@ -55,13 +74,25 @@ export default async function ProjectPage({ params }) {
                         <Reveal className="project-detail-head">
                             <div className="project-category">{category}</div>
                             <h1 className="project-detail-title">{title}</h1>
+                            {/* Try it first: the links sit right under the title, above the fold. */}
+                            {links.length > 0 && (
+                                <div className="project-detail-actions">
+                                    {links.map(({ kind, href, label }, i) => (
+                                        <a key={kind} href={href} className={`btn ${i === 0 ? 'btn-primary' : 'btn-secondary'}`} {...linkProps(kind)}>
+                                            <span className="btn-icon"><LinkIcon kind={kind} />{label}</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                            {download?.note && <p className="project-download-note">{download.note}</p>}
                         </Reveal>
 
-                        <Reveal className="project-image project-detail-image" delay={0.1}>
-                            <span className="project-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                            <div className="project-placeholder">{placeholder}</div>
-                            {image && <img className="project-shot" src={`${BASE}${image}`} alt={`Screenshot of ${title}`} />}
-                        </Reveal>
+                        {/* The main proof: not behind a scroll reveal, so it shows even before scripts run. */}
+                        {cover && (
+                            <div className="project-detail-image project-detail-shot">
+                                <img src={`${BASE}${cover.src}`} alt={`Screenshot of ${title}`} width={cover.w} height={cover.h} fetchPriority="high" />
+                            </div>
+                        )}
 
                         <div className="project-detail-body">
                             <Reveal className="project-detail-main" delay={0.15}>
@@ -81,21 +112,24 @@ export default async function ProjectPage({ params }) {
                                 <div className="project-tech">
                                     {tech.map((name) => <span className="tech-tag" key={name}>{name}</span>)}
                                 </div>
-
-                                <div className="project-detail-actions">
-                                    {demo && (
-                                        <a href={demo} className="btn btn-primary" target="_blank" rel="noopener">
-                                            <span className="btn-icon"><DemoIcon />Live Demo</span>
-                                        </a>
-                                    )}
-                                    {github && (
-                                        <a href={github} className="btn btn-secondary" target="_blank" rel="noopener">
-                                            <span className="btn-icon"><GitHubIcon />GitHub</span>
-                                        </a>
-                                    )}
-                                </div>
                             </Reveal>
                         </div>
+
+                        {screens.length > 0 && (
+                            <section className="project-screens" aria-labelledby="screens-title">
+                                <h2 className="project-detail-sub" id="screens-title">Screens</h2>
+                                {desktopScreens.length > 0 && (
+                                    <ul className="screens-desktop">
+                                        {desktopScreens.map((s) => <Screen key={s.view} shot={s} />)}
+                                    </ul>
+                                )}
+                                {phoneScreens.length > 0 && (
+                                    <ul className="screens-phone">
+                                        {phoneScreens.map((s) => <Screen key={s.view} shot={s} />)}
+                                    </ul>
+                                )}
+                            </section>
+                        )}
 
                         {related.length > 0 && (
                             <div className="project-related">

@@ -29,7 +29,7 @@ export default function ProjectFilter({ projects }) {
             </div>
 
             {/* A new key on each filter change replays the cards' entrance. */}
-            <div className="projects-grid" key={active} data-speed-skew>
+            <div className="projects-grid" key={active}>
                 {shown.map((project, i) => (
                     <ProjectCard key={project.slug} project={project} delay={0.06 * i} />
                 ))}

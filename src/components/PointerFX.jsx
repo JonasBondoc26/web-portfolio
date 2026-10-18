@@ -16,7 +16,6 @@ const LENSES = [
 ];
 
 /* One pointer listener for the whole site (mouse only, and off when motion is reduced):
-   - data-tilt elements lean toward the pointer and get --mx / --my for a spotlight
    - buttons (.btn, data-magnetic) pull a little toward the pointer
    - a ring trails the pointer, grows over anything clickable, and shows data-cursor text
    - over the nav logo or the hero car the ring becomes a lens that shows it in the other theme */
@@ -39,7 +38,6 @@ export default function PointerFX() {
         const lens = lensRef.current;
         document.documentElement.classList.add('has-cursor');
 
-        let tiltEl = null;
         let magnetEl = null;
         let lensEl = null;
         let lensKind = '';
@@ -48,11 +46,6 @@ export default function PointerFX() {
         const pos = { x: -100, y: -100 };
         const target = { x: -100, y: -100 };
 
-        const resetTilt = (el) => {
-            el.classList.remove('is-tilting');
-            el.style.setProperty('--rx', '0deg');
-            el.style.setProperty('--ry', '0deg');
-        };
         const resetMagnet = (el) => {
             el.style.setProperty('--tx', '0px');
             el.style.setProperty('--ty', '0px');
@@ -61,16 +54,6 @@ export default function PointerFX() {
         const frame = () => {
             raf = 0;
             if (last) {
-                if (tiltEl) {
-                    const r = tiltEl.getBoundingClientRect();
-                    const x = (last.clientX - r.left) / r.width;
-                    const y = (last.clientY - r.top) / r.height;
-                    const max = Number(tiltEl.dataset.tilt) || 6;
-                    tiltEl.style.setProperty('--mx', `${x * 100}%`);
-                    tiltEl.style.setProperty('--my', `${y * 100}%`);
-                    tiltEl.style.setProperty('--ry', `${(x - 0.5) * max}deg`);
-                    tiltEl.style.setProperty('--rx', `${(0.5 - y) * max}deg`);
-                }
                 if (magnetEl) {
                     const r = magnetEl.getBoundingClientRect();
                     const dx = last.clientX - (r.left + r.width / 2);
@@ -107,13 +90,6 @@ export default function PointerFX() {
             target.y = e.clientY;
             const t = e.target instanceof Element ? e.target : null;
 
-            const tilt = t?.closest('[data-tilt]') || null;
-            if (tilt !== tiltEl) {
-                if (tiltEl) resetTilt(tiltEl);
-                tiltEl = tilt;
-                tiltEl?.classList.add('is-tilting');
-            }
-
             const magnet = t?.closest(MAGNETIC) || null;
             if (magnet !== magnetEl) {
                 if (magnetEl) resetMagnet(magnetEl);
@@ -138,9 +114,8 @@ export default function PointerFX() {
         };
 
         const onLeave = () => {
-            if (tiltEl) resetTilt(tiltEl);
             if (magnetEl) resetMagnet(magnetEl);
-            tiltEl = magnetEl = lensEl = null;
+            magnetEl = lensEl = null;
             ring.classList.remove('is-on', 'is-lens', 'lens-logo', 'lens-car');
         };
         const onDown = () => ring.classList.add('is-down');

@@ -70,11 +70,11 @@ export default function ContactForm() {
         <Reveal as="form" variant="fade-right" delay={0.2} className={`contact-form${justSent ? ' just-sent' : ''}`} id="contactForm" onSubmit={onSubmit} noValidate>
             <div className="form-group">
                 <label htmlFor="name">Full Name *</label>
-                <input type="text" id="name" name="name" placeholder="Jonas Bondoc" autoComplete="name" required />
+                <input type="text" id="name" name="name" placeholder="Your name" autoComplete="name" required />
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email Address *</label>
-                <input type="email" id="email" name="email" placeholder="jonas@example.com" autoComplete="email" required />
+                <input type="email" id="email" name="email" placeholder="you@example.com" autoComplete="email" required />
             </div>
             <div className="form-group">
                 <label htmlFor="subject">Subject *</label>

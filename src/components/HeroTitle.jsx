@@ -2,8 +2,10 @@
 
 import { useRef } from 'react';
 import { useScrollFrame } from '../lib/scroll';
+import HalftoneText from './HalftoneText';
 
-/** The big name. Sized so its widest line exactly fills the column, whatever the screen. */
+/** The big name. Sized so its widest line exactly fills the column, whatever the screen.
+    The second line is printed in halftone dots (HalftoneText), at the same size as the first. */
 export default function HeroTitle({ lines }) {
     const ref = useRef(null);
 
@@ -20,7 +22,7 @@ export default function HeroTitle({ lines }) {
 
     return (
         <h1 className="hero-title" ref={ref}>
-            {lines.map((line) => <span key={line}>{line}</span>)}
+            {lines.map((line, i) => (i === 1 ? <HalftoneText key={line} text={line} /> : <span key={line}>{line}</span>))}
         </h1>
     );
 }

@@ -4,7 +4,6 @@ import FeaturedProjects from '../components/sections/FeaturedProjects';
 import Contact from '../components/sections/Contact';
 import Resume from '../components/sections/Resume';
 import LapBar from '../components/LapBar';
-import Ticker from '../components/Ticker';
 import { SECTIONS } from '../lib/site';
 
 export default function HomePage() {
@@ -12,7 +11,6 @@ export default function HomePage() {
         <>
             <main id="main">
                 <Hero />
-                <Ticker />
                 <About />
                 <FeaturedProjects />
                 <Contact />

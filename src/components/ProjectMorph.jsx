@@ -30,7 +30,6 @@ export default function ProjectMorph() {
             const root = document.documentElement;
             image.style.viewTransitionName = 'project-hero';
             root.classList.add('is-morphing');
-            window.__routeMorph = true;            // RouteWipe sits this one out
 
             // Name the landing image only once the new page is in, so it never clashes with the
             // card (or with a project page we are leaving, when the card is under "More like this").
@@ -48,7 +47,6 @@ export default function ProjectMorph() {
                 image.style.viewTransitionName = '';
                 if (landing) landing.style.viewTransitionName = '';
                 root.classList.remove('is-morphing');
-                window.__routeMorph = false;
             });
         };
         window.addEventListener('click', onClick, true);

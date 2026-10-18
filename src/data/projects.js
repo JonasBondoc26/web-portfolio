@@ -1,5 +1,10 @@
 // Every project on the site. "featured: true" puts it on the home page.
-// To show a screenshot, put it in public/photos/ and add  "image": "/photos/your-shot.jpg"  to the project.
+// Screenshots come from scripts/optimize-shots.mjs (npm run shots).
+// Buttons (see src/lib/projectLinks.js):
+//   "download": "https://.../app.apk"            -> a "Download App" button, shown first
+//   "download": { "url": "...", "note": "Android APK, 24 MB" }   (the note shows under the buttons)
+//   "demo": "https://..."                         -> "Live Demo", or "Visit Website" when "liveSite": true
+//   "github": "https://..."                       -> "GitHub" 
 export const projects = [
     {
         "slug": "smarttoll-route-planner",
@@ -29,6 +34,7 @@ export const projects = [
         ],
         "demo": "https://smart-toll-production.up.railway.app/login",
         "github": "https://github.com/JonasBondoc26/Smart-Toll",
+        "download": { "url": "https://drive.google.com/drive/folders/1OwMqlx10QvCnEjneofRqDvXbL0ACjOMS?usp=sharing", "note": "Android APK" },
         "featured": true
     },
     {
@@ -72,6 +78,7 @@ export const projects = [
             "Rank Math SEO"
         ],
         "demo": "https://galangdentalcenter.com/",
+        "liveSite": true,
         "github": null,
         "featured": false
     },

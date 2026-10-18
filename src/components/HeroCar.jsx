@@ -76,12 +76,12 @@ export default function HeroCar() {
             timers.push(setTimeout(() => { setLit(0); driveIn(); }, 200 + LIGHTS * 260 + 400));   // lights out: go
         };
 
-        // Wait for the loading screen to leave first.
-        if (window.__loaderDone) runLights();
-        else window.addEventListener('loader:done', runLights, { once: true });
+        // Start once the fonts are in, so the name has settled before the car arrives.
+        let alive = true;
+        (document.fonts?.ready ?? Promise.resolve()).then(() => { if (alive) runLights(); });
 
         return () => {
-            window.removeEventListener('loader:done', runLights);
+            alive = false;
             timers.forEach(clearTimeout);
             cancelAnimationFrame(raf);
         };
