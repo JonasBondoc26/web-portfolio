@@ -32,7 +32,7 @@ export const projects = [
             "Leaflet",
             "OpenStreetMap"
         ],
-        "demo": "https://smart-toll-production.up.railway.app/login",
+        "demo": "https://smarttoll.onrender.com/trip-planner",
         "github": "https://github.com/JonasBondoc26/Smart-Toll",
         "download": { "url": "https://drive.google.com/drive/folders/1OwMqlx10QvCnEjneofRqDvXbL0ACjOMS?usp=sharing", "note": "Android APK" },
         "featured": true
