@@ -30,7 +30,7 @@ export const LinkIcon = ({ kind }) => (kind === 'download' ? <DownloadIcon /> : 
 export default function ProjectCard({ project, delay = 0 }) {
     const { slug, title, placeholder, category, description, tech, image } = project;
 
-    // A real screenshot when there is one (see scripts/optimize-shots.mjs); otherwise the title on livery stripes.
+    // A real screenshot when there is one (listed in data/shots.json, from public/photos/); otherwise the title on livery stripes.
     const cover = shots[slug]?.cover;
     const src = cover ? `${BASE}${cover.src}` : image && `${BASE}${image}`;
 

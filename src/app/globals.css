@@ -552,8 +552,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .project-download-note { margin-top: 0.6rem; padding-left: 0.5rem; font-size: 0.9rem; color: var(--muted); }
 
 /* The lead screenshot: the page's real proportions, not a cropped banner. */
-.project-detail-image.project-detail-shot { aspect-ratio: auto; background: var(--card); }
-.project-detail-shot img { display: block; width: 100%; height: auto; }
+.project-detail-image.project-detail-shot { aspect-ratio: 16 / 10; background: var(--card); }
+
+.project-detail-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
 /* Screens: desktop captures two across, phone captures in a row of phone-shaped frames.
    Each shows the top of the page and opens the full-length capture. */
@@ -563,7 +564,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; }
 .screens-phone { grid-template-columns: repeat(auto-fill, minmax(150px, 210px)); margin-top: 2.5rem; }
 .screen { display: block; overflow: hidden; background: var(--card); border: 1px solid var(--line); transition: border-color 0.2s ease; }
 .screen:hover { border-color: var(--accent-ink); }
-.screen img { display: block; width: 100%; height: auto; }
+.screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+/* The photos are full-length page captures: each thumbnail shows the top screenful. */
+.screens-desktop .screen { aspect-ratio: 16 / 10; }
+.screens-phone .screen { aspect-ratio: 9 / 19.5; }
 .screens-phone .screen { border-radius: 20px; }
 .screen-label { display: block; margin-top: 0.6rem; font-size: 0.92rem; color: var(--muted); }
 .btn-icon { display: inline-flex; align-items: center; gap: 0.5rem; }

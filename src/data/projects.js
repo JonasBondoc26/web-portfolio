@@ -1,5 +1,5 @@
 // Every project on the site. "featured: true" puts it on the home page.
-// Screenshots come from scripts/optimize-shots.mjs (npm run shots).
+// Screenshots: public/photos/, chosen in scripts/shots-manifest.mjs (npm run shots).
 // Buttons (see src/lib/projectLinks.js):
 //   "download": "https://.../app.apk"            -> a "Download App" button, shown first
 //   "download": { "url": "...", "note": "Android APK, 24 MB" }   (the note shows under the buttons)
