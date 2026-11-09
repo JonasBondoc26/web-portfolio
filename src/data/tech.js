@@ -170,7 +170,7 @@ export const tech = [
     {
         "name": "AWS",
         "group": "Platforms",
-        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"
     },
     {
         "name": "MS Office",
